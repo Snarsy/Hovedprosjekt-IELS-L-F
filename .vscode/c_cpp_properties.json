@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Arduino",
-            "compilerPath": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin\\avr-g++",
+            "compilerPath": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin\\avr-g++",
             "compilerArgs": [
                 "-w",
                 "-std=gnu++11",
@@ -16,22 +16,22 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-                "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\leonardo",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\FastGPIO",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Pushbutton",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\USBPause",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuBuzzer\\src",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuHD44780",
-                "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuOLED\\src",
-                "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
-                "c:\\users\\ffose\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include",
-                "c:\\users\\ffose\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include-fixed",
-                "c:\\users\\ffose\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\avr\\include"
+                "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+                "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\leonardo",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\FastGPIO",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Pushbutton",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\USBPause",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuBuzzer\\src",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuHD44780",
+                "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuOLED\\src",
+                "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src",
+                "c:\\users\\larsu\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include",
+                "c:\\users\\larsu\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\lib\\gcc\\avr\\7.3.0\\include-fixed",
+                "c:\\users\\larsu\\appdata\\local\\arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\avr\\include"
             ],
             "forcedInclude": [
-                "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Arduino.h"
+                "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\Arduino.h"
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",

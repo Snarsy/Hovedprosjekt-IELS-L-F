@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#line 1 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 1 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 #include <Zumo32U4.h>
 #include <Wire.h>
 
@@ -38,55 +38,55 @@ int batteryHealthPercentage = 99;
 
 
 //////////////////////////SPEEDOMETER//////////////////////////////////
-#line 39 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 39 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void speedometer();
-#line 58 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 58 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void lineFollowMenu();
-#line 76 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 76 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void doYouWantToCalibrate();
-#line 94 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 94 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void lineFollowMenuDisplay();
-#line 123 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 123 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void driveLinePID();
-#line 142 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 142 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void driveLineStandard();
-#line 170 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 170 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void calibrating();
-#line 186 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 186 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryStatus();
-#line 191 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 191 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryLevel();
-#line 196 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 196 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void chargingCycles();
-#line 203 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 203 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void EmergencyCharging();
-#line 207 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 207 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void backwardsCharging();
-#line 217 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 217 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryMenu();
-#line 223 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 223 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryHealth();
-#line 231 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 231 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void goToCharging();
-#line 236 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 236 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void chargingMenu();
-#line 261 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 261 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void doYouWantToCharge();
-#line 287 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 287 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void chargingOrBatteryService();
-#line 314 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 314 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryService();
-#line 318 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 318 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryCharging();
-#line 344 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 344 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void menu();
-#line 368 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 368 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void menuDisplay();
-#line 395 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 395 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void setup();
-#line 402 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 402 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void loop();
-#line 39 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+#line 39 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void speedometer(){
     unsigned long speedMillis = millis();
     if (A == 1){

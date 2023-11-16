@@ -1,6 +1,6 @@
-# 1 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
-# 2 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 2
-# 3 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 2
+# 1 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 2 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 2
+# 3 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 2
 
 Zumo32U4ButtonA buttonA;
 Zumo32U4ButtonB buttonB;
@@ -50,13 +50,13 @@ void speedometer(){
         int16_t totalSpeed = (((lastSpeed-firstSpeed)/909.70*10.996*4)>0?((lastSpeed-firstSpeed)/909.70*10.996*4):-((lastSpeed-firstSpeed)/909.70*10.996*4));
         display.gotoXY(0,0);
         display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 51 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 51 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                      (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 51 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 51 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                      "Hastighet: "
-# 51 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 51 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                      ); &__c[0];}))
-# 51 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 51 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                      )));
         display.gotoXY(0,4);
         display.print(totalSpeed);
@@ -85,33 +85,33 @@ void lineFollowMenu(){
 void doYouWantToCalibrate(){
     display.gotoXY(0,0);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 78 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 78 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 78 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 78 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Want to calibrate?"
-# 78 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 78 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 78 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 78 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 80 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 80 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 80 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 80 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "A for YES"
-# 80 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 80 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 80 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 80 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(12,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 82 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 82 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 82 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 82 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "B for NO"
-# 82 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 82 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 82 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 82 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     if (buttonA.getSingleDebouncedPress()){
         display.clear();
@@ -127,63 +127,63 @@ void doYouWantToCalibrate(){
 void lineFollowMenuDisplay(){
     display.gotoXY(0,0);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 96 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 96 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 96 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 96 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press A for: "
-# 96 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 96 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 96 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 96 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,1);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 98 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 98 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 98 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 98 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "DriveLinePID"
-# 98 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 98 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 98 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 98 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 100 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 100 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 100 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 100 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press B for: "
-# 100 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 100 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 100 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 100 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,4);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 102 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 102 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 102 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 102 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "DriveLineStandard"
-# 102 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 102 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 102 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 102 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,6);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 104 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 104 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 104 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 104 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press C for: "
-# 104 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 104 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 104 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 104 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,7);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 106 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 106 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 106 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 106 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Back"
-# 106 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 106 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 106 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 106 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     if (buttonA.getSingleDebouncedPress()){
         display.clear();
@@ -268,7 +268,7 @@ ii. charging_cycles - Ant. ganger batteriet har blitt ladet
 iii. battery_health - Helsetilstanden til batteriet. Se pkt. nedenfor
 
 */
-# 186 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 186 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryStatus(){
 
 }
@@ -288,7 +288,7 @@ void chargingCycles(){
 Etter knappetrykk skal den lade 10x raskere når den rygges. Opp til 20%
 
 */
-# 203 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 203 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void EmergencyCharging(){
 
 }
@@ -308,7 +308,7 @@ Emergency charging
 Angre funksjon
 
 */
-# 217 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 217 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 void batteryMenu(){
 
 }
@@ -339,37 +339,37 @@ void chargingMenu(){
         case 2:
             display.gotoXY(0,0);
             display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 246 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 246 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 246 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 246 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          "Charging"
-# 246 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 246 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          ); &__c[0];}))
-# 246 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 246 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          )));
             break;
         case 3:
             display.gotoXY(0,0);
             display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 250 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 250 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 250 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 250 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          "Battery service"
-# 250 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 250 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          ); &__c[0];}))
-# 250 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 250 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          )));
             break;
         case 4:
             display.gotoXY(0,0);
             display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 254 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 254 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 254 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 254 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          "no charging"
-# 254 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 254 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                          ); &__c[0];}))
-# 254 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 254 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                          )));
             break;
 
@@ -380,55 +380,55 @@ void chargingMenu(){
 void doYouWantToCharge(){
     display.gotoXY(0,0);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 263 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 263 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 263 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 263 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Do you want to charge"
-# 263 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 263 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 263 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 263 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 265 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 265 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 265 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 265 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "A for YES"
-# 265 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 265 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 265 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 265 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(12,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 267 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 267 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 267 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 267 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "B for NO"
-# 267 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 267 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 267 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 267 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,6);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 269 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 269 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 269 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 269 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Battery percent "
-# 269 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 269 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 269 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 269 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(18,6);
     display.print(batteryLife);
     display.gotoXY(0,7);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 273 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 273 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 273 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 273 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Battery health "
-# 273 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 273 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 273 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 273 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(18,7);
     display.print(batteryHealthPercentage);
@@ -446,63 +446,63 @@ void doYouWantToCharge(){
 void chargingOrBatteryService(){
     display.gotoXY(0,0);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 289 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 289 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 289 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 289 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press A for: "
-# 289 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 289 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 289 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 289 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,1);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 291 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 291 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 291 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 291 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Charging"
-# 291 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 291 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 291 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 291 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 293 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 293 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 293 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 293 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press B for: "
-# 293 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 293 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 293 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 293 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,4);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 295 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 295 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 295 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 295 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Battery service"
-# 295 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 295 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 295 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 295 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  ))); //service eller replacement
     display.gotoXY(0,6);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 297 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 297 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 297 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 297 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press C for: "
-# 297 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 297 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 297 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 297 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,7);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 299 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 299 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 299 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 299 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Back"
-# 299 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 299 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 299 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 299 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
             if (buttonA.getSingleDebouncedPress()){
                 chargeVar = 2;
@@ -535,7 +535,7 @@ For battery service/replacement press b
 Cancel
 
 */
-# 328 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 328 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 /*
 
 Gamble all or nothing. Either free or you lose everything
@@ -545,7 +545,7 @@ Pay
 cancel
 
 */
-# 334 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 334 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 /*
 
 Forskjellige lademuligheter:
@@ -559,7 +559,7 @@ Lading til vi trykker på stopp
 Gambling av penger :)
 
 */
-# 343 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 343 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
 //////////////////MENU////////////////////////
 void menu(){
     switch (menuVar){
@@ -588,63 +588,63 @@ void menu(){
 void menuDisplay(){
     display.gotoXY(0,0);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 370 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 370 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 370 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 370 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press A for: "
-# 370 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 370 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 370 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 370 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,1);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 372 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 372 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 372 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 372 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "lineFollow"
-# 372 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 372 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 372 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 372 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,3);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 374 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 374 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 374 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 374 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press B for: "
-# 374 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 374 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 374 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 374 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,4);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 376 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 376 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 376 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 376 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "ChargingMenu"
-# 376 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 376 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 376 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 376 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,6);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 378 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 378 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 378 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 378 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "Press C for: "
-# 378 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 378 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 378 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 378 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     display.gotoXY(0,7);
     display.print((reinterpret_cast<const __FlashStringHelper *>(
-# 380 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 380 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  (__extension__({static const char __c[] __attribute__((__progmem__)) = (
-# 380 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 380 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  "?"
-# 380 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
+# 380 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino" 3
                  ); &__c[0];}))
-# 380 "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
+# 380 "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main\\Main.ino"
                  )));
     if (buttonA.getSingleDebouncedPress()){
         display.clear();

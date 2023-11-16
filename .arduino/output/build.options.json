@@ -4,8 +4,8 @@
   "compiler.optimization_flags": "",
   "customBuildProperties": "",
   "fqbn": "pololu-a-star:avr:a-star32U4",
-  "hardwareFolders": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages",
-  "otherLibrariesFolders": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries",
+  "hardwareFolders": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages",
+  "otherLibrariesFolders": "C:\\Users\\larsu\\Documents\\Arduino\\libraries",
   "runtime.ide.version": "10607",
-  "sketchLocation": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\Main"
+  "sketchLocation": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\Main"
 }

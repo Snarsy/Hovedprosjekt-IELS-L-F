@@ -2,125 +2,125 @@
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino"
+    "Includepath": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino"
   },
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\leonardo"
+    "Includepath": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\leonardo"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "Zumo32U4.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "FastGPIO.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\FastGPIO"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\FastGPIO"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "Pushbutton.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Pushbutton"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Pushbutton"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "USBPause.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\USBPause"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\USBPause"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "PololuBuzzer.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuBuzzer\\src"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuBuzzer\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "PololuHD44780.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuHD44780"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuHD44780"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "PololuSH1106Main.h",
-    "Includepath": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuOLED\\src"
+    "Includepath": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuOLED\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "Wire.h",
-    "Includepath": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src"
+    "Includepath": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\GitHub\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Desktop\\Skolearbeid\\IELS1001(ESI sem1)\\Arduino\\Hovedprosjekt-IELS-L-F\\.arduino\\output\\sketch\\Main.ino.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\QTRSensors.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\QTRSensors.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4Encoders.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4Encoders.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4IMU.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4IMU.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4IRPulses.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4IRPulses.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4Motors.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4Motors.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4ProximitySensors.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Zumo32U4\\src\\Zumo32U4ProximitySensors.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\FastGPIO\\FastGPIO.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\FastGPIO\\FastGPIO.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\Pushbutton\\Pushbutton.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\Pushbutton\\Pushbutton.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\USBPause\\USBPause.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\USBPause\\USBPause.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuBuzzer\\src\\PololuBuzzer.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuBuzzer\\src\\PololuBuzzer.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuHD44780\\PololuHD44780.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuHD44780\\PololuHD44780.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\OneDrive\\Documents\\Arduino\\libraries\\PololuOLED\\src\\font.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\Documents\\Arduino\\libraries\\PololuOLED\\src\\font.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\Wire.cpp",
+    "Sourcefile": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\Wire.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\Ffose\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\utility\\twi.c",
+    "Sourcefile": "C:\\Users\\larsu\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\utility\\twi.c",
     "Include": "",
     "Includepath": null
   }
