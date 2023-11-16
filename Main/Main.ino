@@ -18,6 +18,8 @@ int A = 1;
 int16_t firstSpeed = 0;
 unsigned long previousSpeedMillis = 0;
 int readTime = 100;
+int16_t totalSpeed = 0;
+int speedDistance = 0;
 
 // Linefollower:
 unsigned int lineSensorValues[5] = {0, 0, 0, 0, 0}; // 5 sensorer
@@ -30,7 +32,8 @@ int lineFollowMenuVar = 0;
 // Ladestasjon + software battery:
 int chargeVar = 0;
 int batteryLife = 100;
-int batteryHealthPercentage = 99;
+int batteryFull = 1;
+int batteryHealthPercentage = 100;
 
 void setup()
 {
@@ -54,7 +57,8 @@ void speedometer()
         int16_t lastSpeed = encoder.getCountsLeft() + encoder.getCountsRight();
         A = 1;
         previousSpeedMillis = speedMillis;
-        int16_t totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
+        totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
+        speedDistance += totalSpeed;
         display.gotoXY(0, 7);
         display.print(F("Hastighet: "));
         display.gotoXY(10, 7);
@@ -79,11 +83,13 @@ void lineFollowMenu()
         driveLinePID();
         speedometer();
         footInFront();
+        batteryLevel();
         break;
     case 3:
         driveLineStandard();
         speedometer();
         footInFront();
+        batteryLevel();
         break;
     }
 }
@@ -143,22 +149,21 @@ void lineFollowMenuDisplay()
 
 void driveLinePID()
 {
-
     int16_t position = lineSensors.readLine(lineSensorValues);
 
-    display.gotoXY(9, 4);
+    display.gotoXY(9,4);
     display.print(position);
     int16_t error = position - 2000;
-    int16_t speedDifference = error / 4 + 5 * (error - lastError);
+    int16_t speedDifference = error/5 + 2* (error - lastError);    
 
     lastError = error;
 
-    Lspeed = followLinemaxSpeed + speedDifference;
-    Rspeed = followLinemaxSpeed - speedDifference;
-    Lspeed = constrain(Lspeed, 0, (int16_t)followLinemaxSpeed);
-    Rspeed = constrain(Rspeed, 0, (int16_t)followLinemaxSpeed);
-
-    motors.setSpeeds(Lspeed, Rspeed);
+    int leftSpeed  = followLinemaxSpeed + speedDifference;
+    int rightSpeed = followLinemaxSpeed - speedDifference;
+    leftSpeed = constrain(leftSpeed, 0, (int16_t)followLinemaxSpeed);
+    rightSpeed = constrain(rightSpeed, 0, (int16_t)followLinemaxSpeed);
+    
+    motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void driveLineStandard()
@@ -257,6 +262,22 @@ void batteryStatus()
 // Batteri nivå fra 0-100
 void batteryLevel()
 {
+    if (speedDistance > 500){
+        batteryLife = batteryLife - 1;   
+        speedDistance = 0;     
+    }
+
+    if (batteryLife == 100){
+        display.gotoXY(18,0);
+        display.print(batteryLife);
+    } else{
+        display.gotoXY(19,0);
+        display.print(batteryLife);
+    }
+    if (batteryLife < 100 && batteryFull == 1){
+        display.clear();
+        batteryFull = 0;
+    }
 }
 
 // hvor mange ganger bilen har ladet
