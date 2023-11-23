@@ -44,34 +44,40 @@ void turndeg(int tilverdi){ //87 grader er lik 90
         }
         if(sjekk1 && sjekk2){
             motors.setSpeeds(0,0);
+            break;
         }
     }
+    //display.print("Heeelo");
 }
-unsigned long previousmillis;
+unsigned long prevmillis;
 void fargeswitch(){
     while(fargetrykk=='D'){
         if (buttonA.isPressed()){fargetrykk='A';}
         else if (buttonB.isPressed()){fargetrykk='B';}
         else if (buttonC.isPressed()){fargetrykk='C';}
-        previousmillis = millis();
+        prevmillis = millis();
+        turnSensorReset();
     }
-    
+    if (millis()-prevmillis>1000){
     switch (fargetrykk){
         case 'A':
-            if (millis()-previousmillis<500){
+            for(int i=0;i<4;i++){
                 motors.setSpeeds(200,200);
+                delay(1000);
+                turndeg(90);
             }
-            if (millis()-previousmillis>500){
-                turndeg(87);
-            }
-            if (millis()-previousmillis>2500){
-                previousmillis = millis();
-                rotation++;
-            }
-            if (rotation==3){
+            fargetrykk='D';
+            break;
+        case 'B':
+            motors.setSpeeds(200,100);
+            turnSensorUpdate();
+            vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
+            if (vinkel==179){
+                motors.setSpeeds(0,0);
                 fargetrykk='D';
             }
             break;
+    }
     }
 }
 
@@ -81,4 +87,5 @@ void setup(){
 }
 void loop(){
     fargeswitch();
+    
 }
