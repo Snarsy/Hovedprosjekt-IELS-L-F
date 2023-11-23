@@ -9,45 +9,76 @@ Zumo32U4Encoders encoder;
 Zumo32U4Motors motors;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ProximitySensors proxSensor;
+Zumo32U4IMU imu;
+
+#include "Turnsensor.h"
 
 char fargetrykk = 'D';
 unsigned long gammeltid = 0;
+int rotation = 0;
+int vinkel;
+bool sjekk1=0;
+bool sjekk2=0;
 
-void knapp(){
+void showsplay(){
+    display.gotoXY(0,0);
+    display.print(vinkel);
+}
+
+void turndeg(int tilverdi){ //87 grader er lik 90
+    sjekk1=0;
+    sjekk2=0;
+    tilverdi += 180;
+    turnSensorReset();
+    showsplay();
+    while (vinkel<=tilverdi || vinkel>=tilverdi){
+        turnSensorUpdate();
+        vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
+        if (vinkel<tilverdi){
+            sjekk1=1;
+            motors.setSpeeds(100,-100);
+        }
+        else if (vinkel>tilverdi){
+            sjekk2=1;
+            motors.setSpeeds(-100,100);
+        }
+        if(sjekk1 && sjekk2){
+            motors.setSpeeds(0,0);
+        }
+    }
+}
+unsigned long previousmillis;
+void fargeswitch(){
     while(fargetrykk=='D'){
         if (buttonA.isPressed()){fargetrykk='A';}
         else if (buttonB.isPressed()){fargetrykk='B';}
-        else if (buttonB.isPressed()){fargetrykk='C';}
+        else if (buttonC.isPressed()){fargetrykk='C';}
+        previousmillis = millis();
     }
-    delay(100);
+    
     switch (fargetrykk){
         case 'A':
-            gammeltid=millis();
-            motors.setSpeeds(200,200);
-            for (int i=0;i<4;i){
-                if(millis()-gammeltid>762){
-                    motors.setSpeeds(200,200);
-                    gammeltid=millis();
-                    i++;
-                }
-                else if(millis()-gammeltid>(662)){
-                    motors.setSpeeds(0,0);
-                }
-                else if(millis()-gammeltid>500){
-                    motors.setSpeeds(-400,400);
-                }
-                else if(millis()-gammeltid>400){
-                    motors.setSpeeds(0,0);
-                }
+            if (millis()-previousmillis<500){
+                motors.setSpeeds(200,200);
             }
-            motors.setSpeeds(0,0);
-            fargetrykk='D';
+            if (millis()-previousmillis>500){
+                turndeg(87);
+            }
+            if (millis()-previousmillis>2500){
+                previousmillis = millis();
+                rotation++;
+            }
+            if (rotation==3){
+                fargetrykk='D';
+            }
+            break;
     }
 }
 
 void setup(){
-
+    turnSensorSetup();
+    turnSensorReset();
 }
 void loop(){
-    knapp();
+    fargeswitch();
 }
