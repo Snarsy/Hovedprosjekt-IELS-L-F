@@ -1,5 +1,6 @@
 #include <Zumo32U4.h>
 #include <Wire.h>
+#include <EEPROM.h>
 
 Zumo32U4ButtonA buttonA;
 Zumo32U4ButtonB buttonB;
@@ -33,7 +34,13 @@ int lineFollowMenuVar = 0;
 int chargeVar = 0;
 int batteryLife = 100;
 int batteryFull = 1;
-int batteryHealthPercentage = 100;
+int batteryHealthAddress = 0;
+int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
+unsigned long batteryStatusPreviousMillis = 0;
+unsigned long batteryDisplayPreviousMillis = 0;
+int intervalBatteryStatus = 10000;
+int intervalBatteryDisplay = 1000;
+int chargingCycle = 0;
 
 void setup()
 {
@@ -255,8 +262,37 @@ i. battery_level - Ladeprosenten for batteriet (0-100%)
 ii. charging_cycles - Ant. ganger batteriet har blitt ladet
 iii. battery_health - Helsetilstanden til batteriet. Se pkt. nedenfor
 */
-void batteryStatus()
-{
+void batteryStatusTimer(){
+    unsigned long batteryStatusMillis = millis();
+    if (batteryStatusMillis - batteryStatusPreviousMillis > intervalBatteryStatus){
+        unsigned long batteryDisplayMillis = millis();
+        batteryDisplay();
+        if (batteryDisplayMillis - batteryDisplayPreviousMillis > (intervalBatteryStatus + intervalBatteryDisplay)){
+        display.clear();
+        batteryDisplayPreviousMillis = batteryDisplayMillis;
+        batteryStatusPreviousMillis = batteryStatusMillis;
+        }
+    }
+}
+
+void batteryDisplay(){
+    display.gotoXY(0,0);
+    display.print(F("BatteryLevel: "));
+    display.gotoXY(0,1);
+    display.print(batteryLife);
+    display.gotoXY(0,3);
+    display.print(F("Charging cycle: "));
+    display.gotoXY(0,4);
+    display.print(chargingCycle);
+    display.gotoXY(0,6);
+    display.print(F("BatteryHealth: "));
+    display.gotoXY(0,7);
+    display.print(batteryHealthPercentage);
+
+}
+
+void batteryStatus(){
+
 }
 
 // Batteri nivå fra 0-100
@@ -455,13 +491,12 @@ void menu()
         chargingMenu();
         break;
     case 4:
-        // ?
+        // drivingPattern
         break;
     case 5:
         proxBackToMenu();
         break;
     }
-    // ChargingMenu
 }
 
 void menuDisplay()
@@ -477,7 +512,7 @@ void menuDisplay()
     display.gotoXY(0, 6);
     display.print(F("Press C for: "));
     display.gotoXY(0, 7);
-    display.print(F("?"));
+    display.print(F("DrivingPattern"));
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
