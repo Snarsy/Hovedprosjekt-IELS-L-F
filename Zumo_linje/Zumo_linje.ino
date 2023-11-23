@@ -26,6 +26,7 @@ void showsplay(){
 }
 
 void turndeg(int tilverdi){ //87 grader er lik 90
+    delay(5);
     sjekk1=0;
     sjekk2=0;
     tilverdi += 180;
@@ -50,6 +51,7 @@ void turndeg(int tilverdi){ //87 grader er lik 90
     //display.print("Heeelo");
 }
 unsigned long prevmillis;
+int turns = 0;
 void fargeswitch(){
     while(fargetrykk=='D'){
         if (buttonA.isPressed()){fargetrykk='A';}
@@ -57,6 +59,7 @@ void fargeswitch(){
         else if (buttonC.isPressed()){fargetrykk='C';}
         prevmillis = millis();
         turnSensorReset();
+        turns = 0;
     }
     if (millis()-prevmillis>1000){
     switch (fargetrykk){
@@ -77,6 +80,20 @@ void fargeswitch(){
                 fargetrykk='D';
             }
             break;
+        case 'C':
+            if (millis()-prevmillis<1500){
+                motors.setSpeeds(400,400);
+            }
+            if (millis()-prevmillis>2000){
+                turndeg(175);
+                prevmillis = millis()-1000;
+                turns++;
+            }
+            if (turns==2){
+                fargetrykk='D';
+            }
+            break;
+        
     }
     }
 }
