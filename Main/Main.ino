@@ -38,9 +38,12 @@ int batteryHealthAddress = 0;
 int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
 unsigned long batteryStatusPreviousMillis = 0;
 unsigned long batteryDisplayPreviousMillis = 0;
+unsigned long batteryDisplayMillis;
+unsigned long batteryStatusMillis;
 int intervalBatteryStatus = 10000;
 int intervalBatteryDisplay = 1000;
 int chargingCycle = 0;
+int batteryStatusDisplayVar = 0;
 
 void setup()
 {
@@ -66,11 +69,12 @@ void speedometer()
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
         speedDistance += totalSpeed;
+        //display.clear();
         display.gotoXY(0, 7);
         display.print(F("Hastighet: "));
         display.gotoXY(10, 7);
         display.print(totalSpeed);
-        display.gotoXY(14, 7);
+        display.gotoXY(12, 7);
         display.print(F("cm/s"));
     }
 }
@@ -88,15 +92,17 @@ void lineFollowMenu()
         break;
     case 2:
         driveLinePID();
-        speedometer();
         footInFront();
-        batteryLevel();
+        statusDisplay();
+        //speedometer();
+        //batteryLevel();
         break;
     case 3:
         driveLineStandard();
-        speedometer();
         footInFront();
-        batteryLevel();
+        statusDisplay();
+        //speedometer();
+        //batteryLevel();
         break;
     }
 }
@@ -158,8 +164,8 @@ void driveLinePID()
 {
     int16_t position = lineSensors.readLine(lineSensorValues);
 
-    display.gotoXY(9,4);
-    display.print(position);
+    //display.gotoXY(9,4);
+    //display.print(position);
     int16_t error = position - 2000;
     int16_t speedDifference = error/5 + 2* (error - lastError);    
 
@@ -176,8 +182,8 @@ void driveLinePID()
 void driveLineStandard()
 {
     int Read = lineSensors.readLine(lineSensorValues);
-    display.gotoXY(9, 4);
-    display.print(Read);
+    //display.gotoXY(9, 4);
+    //display.print(Read);
     if (Read < 2000)
     {
         if (Read < 1750)
@@ -263,19 +269,15 @@ ii. charging_cycles - Ant. ganger batteriet har blitt ladet
 iii. battery_health - Helsetilstanden til batteriet. Se pkt. nedenfor
 */
 void batteryStatusTimer(){
-    unsigned long batteryStatusMillis = millis();
+    batteryStatusMillis = millis();
     if (batteryStatusMillis - batteryStatusPreviousMillis > intervalBatteryStatus){
-        unsigned long batteryDisplayMillis = millis();
-        batteryDisplay();
-        if (batteryDisplayMillis - batteryDisplayPreviousMillis > (intervalBatteryStatus + intervalBatteryDisplay)){
         display.clear();
-        batteryDisplayPreviousMillis = batteryDisplayMillis;
-        batteryStatusPreviousMillis = batteryStatusMillis;
-        }
+        batteryStatusDisplayVar = 1;
     }
 }
 
 void batteryDisplay(){
+    batteryDisplayMillis = millis();
     display.gotoXY(0,0);
     display.print(F("BatteryLevel: "));
     display.gotoXY(0,1);
@@ -288,11 +290,25 @@ void batteryDisplay(){
     display.print(F("BatteryHealth: "));
     display.gotoXY(0,7);
     display.print(batteryHealthPercentage);
-
+    if (batteryDisplayMillis - batteryDisplayPreviousMillis > (intervalBatteryStatus + intervalBatteryDisplay)){
+        display.clear();
+        batteryDisplayPreviousMillis = batteryDisplayMillis;
+        batteryStatusPreviousMillis = batteryStatusMillis;
+        batteryStatusDisplayVar = 0; 
+        }
 }
 
-void batteryStatus(){
-
+void statusDisplay(){
+    switch (batteryStatusDisplayVar){
+        case 0:
+            speedometer();
+            batteryLevel();
+            batteryStatusTimer();
+            break;
+        case 1:
+            batteryDisplay();
+            break;
+    }
 }
 
 // Batteri nivå fra 0-100
