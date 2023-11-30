@@ -22,6 +22,7 @@ unsigned long previousSpeedMillis = 0;
 int readTime = 100;
 int16_t totalSpeed = 0;
 int speedDistance = 0;
+int totalDistance = 0;
 
 // Linefollower:
 unsigned int lineSensorValues[5] = {0, 0, 0, 0, 0}; // 5 sensorer
@@ -30,16 +31,18 @@ int16_t lastError = 0;
 int Rspeed = 100;
 int Lspeed = 100;
 int lineFollowMenuVar = 0;
+bool proxClear = false;
 
 // Pattern
 int patternVar = 0;
 
-// Ladestasjon + software battery:
+//software battery:
 int chargeVar = 0;
 int batteryLife = 100;
 int batteryFull = 1;
 int batteryHealthAddress = 0;
 int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
+int chanceForBatteryMalfunction = 1000;
 unsigned long batteryStatusPreviousMillis = 0;
 unsigned long batteryDisplayPreviousMillis = 0;
 unsigned long batteryDisplayMillis;
@@ -58,6 +61,7 @@ void setup()
     lineSensors.initFiveSensors();
     proxSensor.initFrontSensor();
     lineSensors.emittersOn();
+    randomSeed(analogRead(0));
 }
 
 //////////////////////////SPEEDOMETER//////////////////////////////////
@@ -76,14 +80,30 @@ void speedometer()
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
         speedDistance += totalSpeed;
-        //display.clear();
-        display.gotoXY(0, 4);
-        display.print(F("Hastighet: "));
-        display.gotoXY(10, 4);
-        display.print(totalSpeed);
-        display.gotoXY(12, 4);
-        display.print(F("cm/s"));
+        totalDistance += speedDistance;
+        
+        
+
     }
+}
+
+void speedometerDisplay(){
+        display.gotoXY(0, 5);
+        display.print(F("Hastighet: "));
+        display.gotoXY(10, 5);
+        display.print(totalSpeed);
+        display.gotoXY(12, 5);
+        display.print(F("cm/s"));
+}
+
+void distanceDisplay(){
+    int16_t distanceInMeters = totalDistance / 100;
+    display.gotoXY(0,7);
+    display.print(F("Distanse:"));
+    display.gotoXY(10,7);
+    display.print(distanceInMeters);
+    display.gotoXY(14,7);
+    display.print(F("m"));
 }
 
 //////////////////////////LINEFOLLOWER/////////////////////////////////
@@ -101,14 +121,14 @@ void lineFollowMenu()
         driveLinePID();
         footInFront();
         statusDisplay();
-        //speedometer();
+        speedometer();
         //batteryLevel();
         break;
     case 3:
         driveLineStandard();
         footInFront();
         statusDisplay();
-        //speedometer();
+        speedometer();
         //batteryLevel();
         break;
     }
@@ -309,6 +329,10 @@ void footInFront()
 
 void proxBackToMenu()
 {
+    if (proxClear == false){
+        display.clear();
+        proxClear = true;
+    }
     display.gotoXY(0, 0);
     display.print(F("Back to menu?"));
     display.gotoXY(0, 3);
@@ -320,11 +344,13 @@ void proxBackToMenu()
     {
         display.clear();
         menuVar = 0;
+        proxClear = false;
     }
     if (buttonB.getSingleDebouncedPress())
     {
         display.clear();
         menuVar = 2;
+        proxClear = false;
     }
 }
 
@@ -369,7 +395,8 @@ void batteryDisplay(){
 void statusDisplay(){
     switch (batteryStatusDisplayVar){
         case 0:
-            speedometer();
+            speedometerDisplay();
+            distanceDisplay();
             batteryLevel();
             batteryCase();
             batteryStatusTimer();
@@ -379,17 +406,34 @@ void statusDisplay(){
             break;
         case 2: 
             lowBatteryDisplay(); 
+            batteryLevel();
             break;
         case 3: 
+            chargeBatteryDisplay();
+            batteryLevel();
+            break;
+        case 4:
             emptyBatteryDisplay();
 
 
     }
 }
 
-
 void emptyBatteryDisplay(){
+    motors.setSpeeds(0,0); 
+    display.clear();
+    menuVar = 3;
+    chargeVar = 1;
+}
 
+void chargeBatteryDisplay(){
+    if (fivePercentageStop == false){
+        display.clear();
+        fivePercentageStop = true; //SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
+    }
+    motors.setSpeeds(0,0);
+
+    menuVar = 3;
 }
 
 void lowBatteryDisplay(){
@@ -398,12 +442,12 @@ void lowBatteryDisplay(){
         tenPercentClear = true;
     }
 
-    display.gotoXY(3,4);
+    display.gotoXY(5,4);
     display.print(F("LOW BATTERY"));
 
     buzzer.playFrequency(800, 1000, 10);
 
-    if ((batteryLife < 10) && (batteryLife > 5)){
+    if ((batteryLife < 10)){
         batteryStatusDisplayVar = 0;
         display.clear();
     }   
@@ -486,6 +530,10 @@ void batteryHealth()
 {
 }
 
+void chanceForReductionOfBatteryHealth(){
+    long RandomCheckBatteryMalfunction = random(1,chanceForBatteryMalfunction);
+}
+
 ///////////////Ladestasjon///////////////////////////////////
 // Når den er på fem prosent går den sakte men sikkert mot ladestasjon
 
@@ -512,10 +560,10 @@ void chargingMenu()
         display.gotoXY(0, 0);
         display.print(F("Battery service"));
         break;
-    case 4:
+    /*case 4:
         display.gotoXY(0, 0);
         display.print(F("no charging"));
-        break;
+        break;*/
     }
 }
 
@@ -543,8 +591,15 @@ void doYouWantToCharge()
     }
     if (buttonB.getSingleDebouncedPress())
     {
-        chargeVar = 4;
-        display.clear();
+        if (batteryStatusDisplayVar == 3){
+            menuVar = 2;
+            batteryStatusDisplayVar = 0;
+            display.clear();
+        }
+        else {
+            menuVar = 0;
+            display.clear();
+        }
     }
 }
 
@@ -617,6 +672,7 @@ void menu()
         display.clear();
         lineFollowMenuVar = 0;
         chargeVar = 0;
+        batteryStatusDisplayVar = 0;
         menuVar = 1;
         break;
     case 1:
@@ -629,7 +685,7 @@ void menu()
         chargingMenu();
         break;
     case 4:
-        // drivingPattern
+        Patternmenu();
         break;
     case 5:
         proxBackToMenu();
