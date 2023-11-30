@@ -31,6 +31,9 @@ int Rspeed = 100;
 int Lspeed = 100;
 int lineFollowMenuVar = 0;
 
+// Pattern
+int patternVar = 0;
+
 // Ladestasjon + software battery:
 int chargeVar = 0;
 int batteryLife = 100;

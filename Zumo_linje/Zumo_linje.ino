@@ -67,7 +67,7 @@ void fargeswitch(){
             for(int i=0;i<4;i++){
                 motors.setSpeeds(200,200);
                 delay(1000);
-                turndeg(90);
+                turndeg(87);
             }
             fargetrykk='D';
             break;
@@ -75,7 +75,7 @@ void fargeswitch(){
             motors.setSpeeds(200,100);
             turnSensorUpdate();
             vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
-            if (vinkel==179){
+            if (vinkel==175){
                 motors.setSpeeds(0,0);
                 fargetrykk='D';
             }
@@ -85,7 +85,7 @@ void fargeswitch(){
                 motors.setSpeeds(400,400);
             }
             if (millis()-prevmillis>2000){
-                turndeg(175);
+                turndeg(170);
                 prevmillis = millis()-1000;
                 turns++;
             }
