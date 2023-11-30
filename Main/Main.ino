@@ -233,6 +233,65 @@ void calibrating()
     motors.setSpeeds(0, 0);
 }
 
+/////////////////////////Driving Pattern///////////////////////////////
+void Patternmenu()
+{
+    switch (patternVar)
+    {
+    case 0:
+        whatPattern();
+        break;
+    case 1:
+        squarePattern();
+        break;
+    case 2:
+        circlePattern();
+        break;
+    case 3:
+        forwardBackpattern();
+        break;
+    }
+}
+void whatPattern(){
+    display.gotoXY(0, 0);
+    display.print(F("Press A for: "));
+    display.gotoXY(0, 1);
+    display.print(F("Square"));
+    display.gotoXY(0, 3);
+    display.print(F("Press B for: "));
+    display.gotoXY(0, 4);
+    display.print(F("Circle"));
+    display.gotoXY(0, 6);
+    display.print(F("Press C for: "));
+    display.gotoXY(0, 7);
+    display.print(F("ForwardBackward"));
+    if (buttonA.getSingleDebouncedPress())
+    {
+        display.clear();
+        patternVar = 1;
+    }
+    if (buttonB.getSingleDebouncedPress())
+    {
+        display.clear();
+        patternVar = 2;
+    }
+    if (buttonC.getSingleDebouncedPress())
+    {
+        display.clear();
+        patternVar = 3;
+    }
+}
+
+void squarePattern(){
+
+}
+void circlePattern(){
+
+}
+void forwardBackpattern(){
+    
+}
+
 /////////////////////////PROX STOP/////////////////////////////////////
 void footInFront()
 {
