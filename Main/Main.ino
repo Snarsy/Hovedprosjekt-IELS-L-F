@@ -10,6 +10,7 @@ Zumo32U4Encoders encoder;
 Zumo32U4Motors motors;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ProximitySensors proxSensor;
+Zumo32U4Buzzer buzzer;
 
 // Menu:
 int menuVar = 0;
@@ -44,6 +45,9 @@ int intervalBatteryStatus = 10000;
 int intervalBatteryDisplay = 1000;
 int chargingCycle = 0;
 int batteryStatusDisplayVar = 0;
+bool tenPercentClear = false;
+bool fivePercentageStop = false;
+bool batteryCaseBlock = false;
 
 void setup()
 {
@@ -70,11 +74,11 @@ void speedometer()
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
         speedDistance += totalSpeed;
         //display.clear();
-        display.gotoXY(0, 7);
+        display.gotoXY(0, 4);
         display.print(F("Hastighet: "));
-        display.gotoXY(10, 7);
+        display.gotoXY(10, 4);
         display.print(totalSpeed);
-        display.gotoXY(12, 7);
+        display.gotoXY(12, 4);
         display.print(F("cm/s"));
     }
 }
@@ -273,6 +277,7 @@ void batteryStatusTimer(){
     if (batteryStatusMillis - batteryStatusPreviousMillis > intervalBatteryStatus){
         display.clear();
         batteryStatusDisplayVar = 1;
+        batteryCaseBlock = true;
     }
 }
 
@@ -295,6 +300,7 @@ void batteryDisplay(){
         batteryDisplayPreviousMillis = batteryDisplayMillis;
         batteryStatusPreviousMillis = batteryStatusMillis;
         batteryStatusDisplayVar = 0; 
+        batteryCaseBlock = false;
         }
 }
 
@@ -303,18 +309,70 @@ void statusDisplay(){
         case 0:
             speedometer();
             batteryLevel();
+            batteryCase();
             batteryStatusTimer();
             break;
         case 1:
             batteryDisplay();
             break;
+        case 2: 
+            lowBatteryDisplay(); 
+            break;
+        case 3: 
+            emptyBatteryDisplay();
+
+
     }
 }
+
+
+void emptyBatteryDisplay(){
+
+}
+
+void lowBatteryDisplay(){
+    if (tenPercentClear == false){
+        display.clear();
+        tenPercentClear = true;
+    }
+
+    display.gotoXY(3,4);
+    display.print(F("LOW BATTERY"));
+
+    buzzer.playFrequency(800, 1000, 10);
+
+    if ((batteryLife < 10) && (batteryLife > 5)){
+        batteryStatusDisplayVar = 0;
+        display.clear();
+    }   
+}
+
+void batteryCase(){
+    if (batteryCaseBlock == false){
+        if (batteryLife > 100){
+            batteryLife = 100;
+        } else if (batteryLife > 10){
+            batteryStatusDisplayVar = 0;
+        } else if (batteryLife > 5){
+            if (tenPercentClear == false){
+                batteryStatusDisplayVar = 2;
+        }
+        } else if (batteryLife > 0){
+            if (fivePercentageStop == false){
+                batteryStatusDisplayVar = 3;
+        }
+        } else if (batteryLife == 0){
+            batteryStatusDisplayVar = 4;
+        }
+        }
+}
+
+
 
 // Batteri nivå fra 0-100
 void batteryLevel()
 {
-    if (speedDistance > 500){
+    if (speedDistance > 20){
         batteryLife = batteryLife - 1;   
         speedDistance = 0;     
     }
@@ -331,6 +389,8 @@ void batteryLevel()
         batteryFull = 0;
     }
 }
+
+
 
 // hvor mange ganger bilen har ladet
 void chargingCycles()
