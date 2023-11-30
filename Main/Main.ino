@@ -15,6 +15,8 @@ Zumo32U4Buzzer buzzer;
 // Menu:
 int menuVar = 0;
 
+int oneSecond = 1000;
+
 // Speedometer:
 int A = 1;
 int16_t firstSpeed = 0;
@@ -54,6 +56,8 @@ int batteryStatusDisplayVar = 0;
 bool tenPercentClear = false;
 bool fivePercentageStop = false;
 bool batteryCaseBlock = false;
+unsigned long batteryHealthPreviousMillis = 0;
+unsigned long batteryHealthMillis;
 
 void setup()
 {
@@ -79,10 +83,10 @@ void speedometer()
         A = 1;
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
-        speedDistance += totalSpeed;
+        speedDistance += totalSpeed/10;
         totalDistance += speedDistance;
         
-        
+        chanceForReductionOfBatteryHealth();
 
     }
 }
@@ -122,14 +126,16 @@ void lineFollowMenu()
         footInFront();
         statusDisplay();
         speedometer();
-        //batteryLevel();
+        batteryLevel();
+        
         break;
     case 3:
         driveLineStandard();
         footInFront();
         statusDisplay();
         speedometer();
-        //batteryLevel();
+        batteryLevel();
+        
         break;
     }
 }
@@ -194,7 +200,7 @@ void driveLinePID()
     //display.gotoXY(9,4);
     //display.print(position);
     int16_t error = position - 2000;
-    int16_t speedDifference = error/5 + 2* (error - lastError);    
+    int16_t speedDifference = error/4 + 4* (error - lastError);    
 
     lastError = error;
 
@@ -366,6 +372,8 @@ void batteryStatusTimer(){
         display.clear();
         batteryStatusDisplayVar = 1;
         batteryCaseBlock = true;
+        batteryStatusPreviousMillis = batteryStatusMillis;
+        batteryDisplayPreviousMillis = millis();
     }
 }
 
@@ -383,10 +391,9 @@ void batteryDisplay(){
     display.print(F("BatteryHealth: "));
     display.gotoXY(0,7);
     display.print(batteryHealthPercentage);
-    if (batteryDisplayMillis - batteryDisplayPreviousMillis > (intervalBatteryStatus + intervalBatteryDisplay)){
+    if (batteryDisplayMillis - batteryDisplayPreviousMillis > (intervalBatteryDisplay)){
         display.clear();
         batteryDisplayPreviousMillis = batteryDisplayMillis;
-        batteryStatusPreviousMillis = batteryStatusMillis;
         batteryStatusDisplayVar = 0; 
         batteryCaseBlock = false;
         }
@@ -397,23 +404,26 @@ void statusDisplay(){
         case 0:
             speedometerDisplay();
             distanceDisplay();
-            batteryLevel();
+            batteryLevelDisplay();
             batteryCase();
             batteryStatusTimer();
+            batteryHealth();
             break;
         case 1:
             batteryDisplay();
             break;
         case 2: 
             lowBatteryDisplay(); 
-            batteryLevel();
+            //batteryLevelDisplay();
             break;
         case 3: 
             chargeBatteryDisplay();
-            batteryLevel();
+            //batteryLevelDisplay();
             break;
         case 4:
             emptyBatteryDisplay();
+        case 5:
+            batteryMalfunction();
 
 
     }
@@ -429,6 +439,7 @@ void emptyBatteryDisplay(){
 void chargeBatteryDisplay(){
     if (fivePercentageStop == false){
         display.clear();
+        batteryHealthPercentage = batteryHealthPercentage - 5; //HVER GANG DEN GÅR TIL 5 PROSENT
         fivePercentageStop = true; //SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
     }
     motors.setSpeeds(0,0);
@@ -479,10 +490,12 @@ void batteryCase(){
 void batteryLevel()
 {
     if (speedDistance > 20){
-        batteryLife = batteryLife - 1;   
+        batteryLife -= 1;   
         speedDistance = 0;     
     }
+}
 
+void batteryLevelDisplay(){
     if (batteryLife == 100){
         display.gotoXY(18,0);
         display.print(batteryLife);
@@ -494,8 +507,8 @@ void batteryLevel()
         display.clear();
         batteryFull = 0;
     }
-}
 
+}
 
 
 // hvor mange ganger bilen har ladet
@@ -527,11 +540,44 @@ void batteryMenu()
 ///////////////////////Helsetilstand////////////////////////////////////
 // Batteri helse fra 0-100, der 100 er beste verdi
 void batteryHealth()
-{
+{   
+    if (batteryHealthPercentage < 0){
+        batteryHealthPercentage = 0;
+    }
+
+    updateBatteryHealthEeprom();
+    //chanceForReductionOfBatteryHealth();
+}
+
+void updateBatteryHealthEeprom(){
+    EEPROM.write(batteryHealthAddress, batteryHealthPercentage);
+
 }
 
 void chanceForReductionOfBatteryHealth(){
     long RandomCheckBatteryMalfunction = random(1,chanceForBatteryMalfunction);
+    if (RandomCheckBatteryMalfunction == 1){
+        batteryHealthPercentage = batteryHealthPercentage/2;
+        display.clear();
+        batteryStatusDisplayVar = 5; 
+        batteryHealthPreviousMillis = batteryHealthMillis;
+    }
+}
+
+void batteryMalfunction(){
+    batteryHealthMillis = millis();
+    display.gotoXY(5,4);
+    display.print(F("MALFUNCTION"));
+    display.gotoXY(5,5);
+    display.print(F("BATTERY HALVED"));
+
+    buzzer.playNote(NOTE_A(4),500,15);
+
+    if (batteryHealthMillis - batteryHealthPreviousMillis > (5 * oneSecond)){
+        batteryStatusDisplayVar = 0;
+        batteryHealthPreviousMillis = batteryHealthMillis;
+        display.clear();
+    }
 }
 
 ///////////////Ladestasjon///////////////////////////////////
@@ -551,19 +597,25 @@ void chargingMenu()
         break;
     case 1:
         chargingOrBatteryService();
+        batteryHealth();
         break;
     case 2:
         display.gotoXY(0, 0);
         display.print(F("Charging"));
+        if (buttonA.getSingleDebouncedPress()){
+        batteryHealthPercentage = batteryHealthPercentage - 3;
+        chargeVar = 1;
+        }
         break;
     case 3:
         display.gotoXY(0, 0);
-        display.print(F("Battery service"));
+        display.print(F("BatteryHealth 99%"));
+        batteryHealthPercentage = 99;
+        if (buttonA.getSingleDebouncedPress()){
+        chargeVar = 1;
+        display.clear();
+        }
         break;
-    /*case 4:
-        display.gotoXY(0, 0);
-        display.print(F("no charging"));
-        break;*/
     }
 }
 
