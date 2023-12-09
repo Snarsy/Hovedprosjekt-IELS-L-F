@@ -11,6 +11,7 @@ Zumo32U4Motors motors;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4ProximitySensors proxSensor;
 Zumo32U4Buzzer buzzer;
+Zumo32U4IMU imu;
 
 // Menu:
 int menuVar = 0;
@@ -260,12 +261,49 @@ void calibrating()
 }
 
 /////////////////////////Driving Pattern///////////////////////////////
+int sjekk1;
+int sjekk2;
+int vinkel;
+int rotation = 0;
+int turns;
+char fargetrykk = 'D';
+unsigned long patternmillis;
+#include "Turnsensor.h"
+void turndeg(int tilverdi){ //87 grader er lik 90
+    delay(5);
+    sjekk1=0;
+    sjekk2=0;
+    tilverdi += 180;
+    turnSensorReset();
+    while (vinkel<=tilverdi || vinkel>=tilverdi){
+        turnSensorUpdate();
+        vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
+        if (vinkel<tilverdi){
+            sjekk1=1;
+            motors.setSpeeds(100,-100);
+        }
+        else if (vinkel>tilverdi){
+            sjekk2=1;
+            motors.setSpeeds(-100,100);
+        }
+        if(sjekk1 && sjekk2){
+            motors.setSpeeds(0,0);
+            break;
+        }
+    }
+    //display.print("Heeelo");
+}
+
 void Patternmenu()
 {
     switch (patternVar)
     {
     case 0:
+        turnSensorSetup();
         whatPattern();
+        turnSensorReset();
+        patternmillis = millis();
+        turns = 0;
         break;
     case 1:
         squarePattern();
@@ -291,7 +329,8 @@ void whatPattern(){
     display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("ForwardBackward"));
-    if (buttonA.getSingleDebouncedPress())
+    while(patternVar==0){
+        if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
         patternVar = 1;
@@ -306,10 +345,18 @@ void whatPattern(){
         display.clear();
         patternVar = 3;
     }
+    }
+    
 }
 
 void squarePattern(){
-
+    for(int i=0;i<4;i++){
+                motors.setSpeeds(200,200);
+                delay(1000);
+                turndeg(87);
+            }
+            patternVar=0;
+            menuVar=0;
 }
 void circlePattern(){
 

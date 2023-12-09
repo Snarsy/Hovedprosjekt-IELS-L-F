@@ -31,7 +31,6 @@ void turndeg(int tilverdi){ //87 grader er lik 90
     sjekk2=0;
     tilverdi += 180;
     turnSensorReset();
-    showsplay();
     while (vinkel<=tilverdi || vinkel>=tilverdi){
         turnSensorUpdate();
         vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
