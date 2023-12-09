@@ -200,7 +200,7 @@ void driveLinePID()
     //display.gotoXY(9,4);
     //display.print(position);
     int16_t error = position - 2000;
-    int16_t speedDifference = error/4 + 4* (error - lastError);    
+    int16_t speedDifference = error/5 + 2* (error - lastError);    
 
     lastError = error;
 
