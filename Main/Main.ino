@@ -41,6 +41,7 @@ int patternVar = 0;
 //bank account:
 int bankAccountAddress = 1;
 int bankAccount = EEPROM.read(bankAccountAddress);
+int batteryCost = 0;
 
 
 //software battery:
@@ -50,6 +51,7 @@ int batteryLife = 100;
 int batteryFull = 1;
 int batteryHealthAddress = 0;
 int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
+int updatedBatteryHealthPercentage = 0;
 int chanceForBatteryMalfunction = 1000;
 unsigned long batteryStatusPreviousMillis = 0;
 unsigned long batteryDisplayPreviousMillis = 0;
@@ -662,6 +664,10 @@ void updateBatteryHealthEeprom(){
 
 }
 
+void updateBankAccountEeprom(){
+    EEPROM.write(bankAccountAddress, bankAccount);
+}
+
 void chanceForReductionOfBatteryHealth(){
     long RandomCheckBatteryMalfunction = random(1,chanceForBatteryMalfunction);
     if (RandomCheckBatteryMalfunction == 1){
@@ -830,12 +836,44 @@ void batteryCharging()
 }
 
 void batteryHealthServiceCost(){
-    int batteryCost = (100-batteryHealthPercentage) * 2;
+    if (batteryHealthPercentage <= 10){
+        display.gotoXY(0,0);
+        display.print("BatteryHealth too low");
+        display.gotoXY(0,1);
+        display.print("must change battery");
+        display.gotoXY(0,3);
+        display.print("transfering to menu");
+    }
+    if (batteryHealthPercentage >= 10){
+
+    batteryCost = (100-batteryHealthPercentage) * 2;
+    updatedBatteryHealthPercentage = batteryHealthPercentage + 20;
+    }
+    if (updatedBatteryHealthPercentage > 100){
+        updatedBatteryHealthPercentage = 100;
+    }
+    serviceWillCostMenu();
+    
+    if (buttonA.getSingleDebouncedPress()){
+    updateBankAccountEeprom(); 
+    }
+
+    if (buttonB.getSingleDebouncedPress()){
+        display.clear();
+        menuVar = 0;
+    }
+}
+
+void serviceWillCostMenu(){
     display.gotoXY(0,0);
     display.print("Service will cost:");
     display.gotoXY(18,0);
     display.print(batteryCost);
-    display.gotoXY(0,2);
+    display.gotoXY(0,1);
+    display.print("Updated health:");
+    display.gotoXY(18,1);
+    display.print(updatedBatteryHealthPercentage);
+    display.gotoXY(0,3);
     display.print("Do you want to pay?");
     display.gotoXY(0,5);
     display.print("A for YES");
@@ -845,13 +883,15 @@ void batteryHealthServiceCost(){
     display.print("Bank account:");
     display.gotoXY(14,7);
     display.print(bankAccount);
-     
-    if (buttonA.getSingleDebouncedPress()){
+
+}
+
+void calibratePaymentBatteryService(){
     display.clear();
     display.gotoXY(0,3);
     display.print("Calibrating payment...");
     bankAccount -= batteryCost;
-
+    batteryHealthPercentage += 20; //fikser bare 20%
     delay(3000);
     display.clear();
     display.gotoXY(0,3);
@@ -861,7 +901,6 @@ void batteryHealthServiceCost(){
     delay(3000);
     display.clear();
     menuVar = 0;
-    }
 }
 
 void batteryService(){
