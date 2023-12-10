@@ -39,8 +39,8 @@ bool proxClear = false;
 int patternVar = 0;
 
 //bank account:
-int bankAccount = EEPROM.read(bankAccountAddress);
 int bankAccountAddress = 1;
+int bankAccount = EEPROM.read(bankAccountAddress);
 
 
 //software battery:
@@ -720,6 +720,10 @@ void doYouWantToCharge()
     display.print(F("A for YES"));
     display.gotoXY(12, 3);
     display.print(F("B for NO"));
+    display.gotoXY(0,5);
+    display.print("Bank account: ");
+    display.gotoXY(18,5);
+    display.print(bankAccount);
     display.gotoXY(0, 6);
     display.print(F("Battery percent "));
     display.gotoXY(18, 6);
