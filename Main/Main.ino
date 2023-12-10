@@ -42,6 +42,7 @@ int patternVar = 0;
 int bankAccountAddress = 1;
 int bankAccount = EEPROM.read(bankAccountAddress);
 int batteryCost = 0;
+int batteryChangeCost = 150;
 
 
 //software battery:
@@ -621,10 +622,7 @@ void batteryLevelDisplay(){
 }
 
 
-// hvor mange ganger bilen har ladet
-void chargingCycles()
-{
-}
+
 
 /*Kan bare benyttes en gang
 Etter knappetrykk skal den lade 10x raskere når den rygges. Opp til 20%
@@ -695,8 +693,6 @@ void batteryMalfunction(){
 }
 
 ///////////////Ladestasjon///////////////////////////////////
-// Når den er på fem prosent går den sakte men sikkert mot ladestasjon
-
 void goToCharging()
 {
 }
@@ -716,9 +712,11 @@ void chargingMenu()
     case 2:
         display.gotoXY(0, 0);
         display.print(F("Charging"));
+        batteryLife = 100;
         if (buttonA.getSingleDebouncedPress()){
         batteryHealthPercentage = batteryHealthPercentage - 3;
         chargeVar = 1;
+        chargingCycle += 1;
         }
         break;
     case 3:
@@ -849,8 +847,8 @@ void batteryHealthServiceCost(){
     batteryCost = (100-batteryHealthPercentage) * 2;
     updatedBatteryHealthPercentage = batteryHealthPercentage + 20;
     }
-    if (updatedBatteryHealthPercentage > 100){
-        updatedBatteryHealthPercentage = 100;
+    if (updatedBatteryHealthPercentage > 99){
+        updatedBatteryHealthPercentage = 99;
     }
     serviceWillCostMenu();
     
@@ -886,6 +884,28 @@ void serviceWillCostMenu(){
 
 }
 
+void batteryChange(){
+    display.gotoXY(0,0);
+    display.print("This will cost:");
+    display.gotoXY(15,0);
+    display.print(batteryChangeCost);
+    display.gotoXY(0,1);
+    display.print("Do you want to change?");
+    display.gotoXY(0,3);
+    display.print("A for YES");
+    display.gotoXY(14,3);
+    display.print("B for YES");
+    display.gotoXY(0,7);
+    display.print("Bank account:");
+    display.gotoXY(14,7);
+    
+    if (buttonA.getSingleDebouncedPress()){
+        if (bankAccount <= batteryChangeCost){
+
+        }
+    }
+}
+
 void calibratePaymentBatteryService(){
     display.clear();
     display.gotoXY(0,3);
@@ -907,32 +927,14 @@ void batteryService(){
     switch (serviceVar)
     { 
     case 1:
-
+        batteryChange();
         break;
     case 2:
         batteryHealthServiceCost();
         break;
     }
 }
-/*
-To charge press A
-For battery service/replacement press b
-Cancel
-*/
 
-/*
-Gamble all or nothing. Either free or you lose everything
-Pay
-cancel
-*/
-
-/*
-Forskjellige lademuligheter:
-Full
-Vi velger prosent
-Lading til vi trykker på stopp
-Gambling av penger :)
-*/
 
 //////////////////MENU////////////////////////
 void menu()
@@ -949,7 +951,7 @@ void menu()
         serviceVar = 0;
         break;
     case 1:
-        menuDisplay();
+        menuDisplay1();
         break;
     case 2:
         lineFollowMenu();
@@ -966,10 +968,16 @@ void menu()
     case 6:
         batteryService(); 
         break;
+    case 7: 
+        menuDisplay2();
+        break;
+    case 8:
+        //work
+        break;
     }
 }
 
-void menuDisplay()
+void menuDisplay1()
 {
     display.gotoXY(0, 0);
     display.print(F("Press A for: "));
@@ -982,7 +990,7 @@ void menuDisplay()
     display.gotoXY(0, 6);
     display.print(F("Press C for: "));
     display.gotoXY(0, 7);
-    display.print(F("DrivingPattern"));
+    display.print(F("Next"));
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
@@ -996,7 +1004,38 @@ void menuDisplay()
     if (buttonC.getSingleDebouncedPress())
     {
         display.clear();
+        menuVar = 7;
+    }
+}
+
+void menuDisplay2(){
+    display.gotoXY(0, 0);
+    display.print(F("Press A for: "));
+    display.gotoXY(0, 1);
+    display.print(F("Work"));
+    display.gotoXY(0, 3);
+    display.print(F("Press B for: "));
+    display.gotoXY(0, 4);
+    display.print(F("Drivingpattern"));
+    display.gotoXY(0, 6);
+    display.print(F("Press C for: "));
+    display.gotoXY(0, 7);
+    display.print(F("Next"));
+     
+    if (buttonA.getSingleDebouncedPress())
+    {
+        display.clear();
+        menuVar = 8;
+    }
+    if (buttonB.getSingleDebouncedPress())
+    {
+        display.clear();
         menuVar = 4;
+    }
+    if (buttonC.getSingleDebouncedPress())
+    {
+        display.clear();
+        menuVar = 0;
     }
 }
 
