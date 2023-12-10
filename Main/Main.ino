@@ -15,7 +15,6 @@ Zumo32U4IMU imu;
 
 // Menu:
 int menuVar = 0;
-
 int oneSecond = 1000;
 
 // Speedometer:
@@ -39,7 +38,13 @@ bool proxClear = false;
 // Pattern
 int patternVar = 0;
 
+//bank account:
+int bankAccount = EEPROM.read(bankAccountAddress);
+int bankAccountAddress = 1;
+
+
 //software battery:
+int serviceVar = 0;
 int chargeVar = 0;
 int batteryLife = 100;
 int batteryFull = 1;
@@ -655,13 +660,7 @@ void chargingMenu()
         }
         break;
     case 3:
-        display.gotoXY(0, 0);
-        display.print(F("BatteryHealth 99%"));
-        batteryHealthPercentage = 99;
-        if (buttonA.getSingleDebouncedPress()){
-        chargeVar = 1;
-        display.clear();
-        }
+        batteryServiceOrChangeMenu();
         break;
     }
 }
@@ -733,14 +732,89 @@ void chargingOrBatteryService()
     }
 }
 
-void batteryService()
+void batteryServiceOrChangeMenu()
 {
+    display.gotoXY(0, 0);
+    display.print(F("Press A for: "));
+    display.gotoXY(0, 1);
+    display.print(F("Change of battery"));
+    display.gotoXY(0, 3);
+    display.print(F("Press B for: "));
+    display.gotoXY(0, 4);
+    display.print(F("Battery service")); 
+    display.gotoXY(0, 6);
+    display.print(F("Press C for: "));
+    display.gotoXY(0, 7);
+    display.print(F("Back"));
+    if (buttonA.getSingleDebouncedPress())
+    {
+        serviceVar = 1;
+        menuVar = 6;
+        display.clear();
+    }
+    if (buttonB.getSingleDebouncedPress())
+    {
+        serviceVar = 2;
+        menuVar = 6;
+        display.clear();
+    }
+    if (buttonC.getSingleDebouncedPress())
+    {
+        chargeVar = 1;
+        display.clear();
+    }
 }
 
 void batteryCharging()
 {
 }
 
+void batteryHealthServiceCost(){
+    int batteryCost = (100-batteryHealthPercentage) * 2;
+    display.gotoXY(0,0);
+    display.print("Service will cost:");
+    display.gotoXY(18,0);
+    display.print(batteryCost);
+    display.gotoXY(0,2);
+    display.print("Do you want to pay?");
+    display.gotoXY(0,5);
+    display.print("A for YES");
+    display.gotoXY(12,5);
+    display.print("B for NO");
+    display.gotoXY(0,7);
+    display.print("Bank account:");
+    display.gotoXY(14,7);
+    display.print(bankAccount);
+     
+    if (buttonA.getSingleDebouncedPress()){
+    display.clear();
+    display.gotoXY(0,3);
+    display.print("Calibrating payment...");
+    bankAccount -= batteryCost;
+
+    delay(3000);
+    display.clear();
+    display.gotoXY(0,3);
+    display.print("Payment done!");
+    display.gotoXY(0,5);
+    display.print("Returning to menu...");
+    delay(3000);
+    display.clear();
+    menuVar = 0;
+    }
+}
+
+void batteryService(){
+    switch (serviceVar)
+    { 
+    case 1:
+
+        break;
+    case 2:
+        batteryHealthServiceCost();
+        break;
+    }
+}
 /*
 To charge press A
 For battery service/replacement press b
@@ -773,6 +847,7 @@ void menu()
         chargeVar = 0;
         batteryStatusDisplayVar = 0;
         menuVar = 1;
+        serviceVar = 0;
         break;
     case 1:
         menuDisplay();
@@ -788,6 +863,9 @@ void menu()
         break;
     case 5:
         proxBackToMenu();
+        break;
+    case 6:
+        batteryService(); 
         break;
     }
 }
