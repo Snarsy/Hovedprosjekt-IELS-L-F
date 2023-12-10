@@ -363,12 +363,21 @@ void Patternmenu()
         break;
     case 2:
         squarePattern();
+        statusDisplay();
+        speedometer();
+        batteryLevel();
         break;
     case 3:
         circlePattern();
+        statusDisplay();
+        speedometer();
+        batteryLevel();
         break;
     case 4:
         forwardBackpattern();
+        statusDisplay();
+        speedometer();
+        batteryLevel();
         break;
     }
     
