@@ -299,28 +299,6 @@ void turndeg(int tilverdi){ //87 grader er lik 90
     //display.print("Heeelo");
 }
 
-void Patternmenu()
-{
-    switch (patternVar)
-    {
-    case 0:
-        turnSensorSetup();
-        whatPattern();
-        turnSensorReset();
-        patternmillis = millis();
-        turns = 0;
-        break;
-    case 1:
-        squarePattern();
-        break;
-    case 2:
-        circlePattern();
-        break;
-    case 3:
-        forwardBackpattern();
-        break;
-    }
-}
 void whatPattern(){
     display.gotoXY(0, 0);
     display.print(F("Press A for: "));
@@ -334,40 +312,109 @@ void whatPattern(){
     display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("ForwardBackward"));
-    while(patternVar==0){
-        if (buttonA.getSingleDebouncedPress())
+    if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
+        patternVar = 2;
+    }
+    if (buttonB.getSingleDebouncedPress())
+    {
+        display.clear();
+        patternVar = 3;
+    }
+    if (buttonC.getSingleDebouncedPress())
+    {
+        display.clear();
+        patternVar = 4;
+    }
+}
+void calibratepattern(){
+    display.gotoXY(0, 0);
+    display.print(F("Want to calibrate?"));
+    display.gotoXY(0, 3);
+    display.print(F("A for YES"));
+    display.gotoXY(12, 3);
+    display.print(F("B for NO"));
+    if (buttonA.getSingleDebouncedPress())
+    {
+        display.clear();
+        turnSensorSetup();
         patternVar = 1;
     }
     if (buttonB.getSingleDebouncedPress())
     {
         display.clear();
-        patternVar = 2;
+        patternVar = 1;
     }
-    if (buttonC.getSingleDebouncedPress())
+}    
+
+void Patternmenu()
+{
+    switch (patternVar)
     {
-        display.clear();
-        patternVar = 3;
-    }
+    case 0:
+        calibratepattern();
+        break;
+    case 1:
+        whatPattern();
+        turnSensorReset();
+        patternmillis = millis();
+        turns = 0;
+        break;
+    case 2:
+        squarePattern();
+        break;
+    case 3:
+        circlePattern();
+        break;
+    case 4:
+        forwardBackpattern();
+        break;
     }
     
 }
 
 void squarePattern(){
-    for(int i=0;i<4;i++){
-                motors.setSpeeds(200,200);
-                delay(1000);
-                turndeg(87);
-            }
-            patternVar=0;
-            menuVar=0;
+    if(millis()-patternmillis>200){
+        if(millis()-patternmillis<1000 && turns<4){
+        motors.setSpeeds(200,200);
+    }
+    else if(turns==4){
+        patternVar=0;
+        menuVar=0;
+    }
+    else{
+        turndeg(87);
+        patternmillis=millis()-200;
+        turns++;
+    }
+    }         
 }
 void circlePattern(){
-
+    if(millis()-patternmillis>500){
+        motors.setSpeeds(200,100);
+        turnSensorUpdate();
+        vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16)+180;
+        if (vinkel==175){
+        motors.setSpeeds(0,0);
+        patternVar=0;
+        menuVar=0;
+    }
+    }
 }
 void forwardBackpattern(){
-    
+    if(millis()-patternmillis>500){
+        motors.setSpeeds(200,200);
+        if(millis()-patternmillis>2000){
+            turndeg(175);
+            patternmillis = millis()-500;
+            turns++;
+        }
+        if (turns==2){
+                patternVar=0;
+                menuVar=0;
+            }
+    }
 }
 
 /////////////////////////PROX STOP/////////////////////////////////////
