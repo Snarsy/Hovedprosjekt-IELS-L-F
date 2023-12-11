@@ -721,7 +721,7 @@ void batteryCase()
         {
             batteryLife = 100;
         }
-        else if (batteryLife > 10)|
+        else if (batteryLife > 10)
         {
             batteryStatusDisplayVar = 0;
         }
