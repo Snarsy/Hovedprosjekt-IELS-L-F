@@ -507,7 +507,6 @@ void proxBackToMenu()
         proxClear = false;
     }
 }
-//HEEELO
 //////////////////////////Software batteri/////////////////////////////
 void batteryStatusTimer(){
     batteryStatusMillis = millis();
