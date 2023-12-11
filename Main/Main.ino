@@ -18,16 +18,14 @@ int menuVar = 0;
 int oneSecond = 1000;
 
 // Speedometer:
+unsigned long previousSpeedMillis, prevAveragesMillis = 0;
+int speedDistance, totalDistance = 0;
 int A = 1;
 int16_t firstSpeed = 0;
-unsigned long previousSpeedMillis = 0;
 int readTime = 100;
 int16_t totalSpeed = 0;
-int speedDistance = 0;
-int totalDistance = 0;
-bool seventyMillis_start = false;
-bool stoppedTimer = false;
-unsigned long prevAveragesMillis = 0;
+int16_t negativTotalSpeed = 0;
+bool seventyMillis_start, stoppedTimer = false;
 int holdTimerValue, secondsAboveSeventy, aboveSeventyCounter, maxSpeed, distanceAverage, averageSpeed60Sec = 0;
 
 
@@ -51,25 +49,19 @@ int batteryChangeCost = 150;
 
 
 //software battery:
-int serviceVar = 0;
-int chargeVar = 0;
+int serviceVar, chargeVar, chargingCycle, batteryStatusDisplayVar = 0;
 int batteryLife = 100;
 int batteryFull = 1;
+int batteryHealthLevel = 0;
 int batteryHealthAddress = 0;
 int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
 int updatedBatteryHealthPercentage = 0;
 int chanceForBatteryMalfunction = 10000;
-unsigned long batteryStatusPreviousMillis = 0;
-unsigned long batteryDisplayPreviousMillis = 0;
+unsigned long batteryDisplayPreviousMillis, batteryStatusPreviousMillis, batteryHealthPreviousMillis = 0;
 unsigned long batteryDisplayMillis, batteryStatusMillis, batteryHealthMillis;
 int intervalBatteryStatus = 10000;
 int intervalBatteryDisplay = 1000;
-int chargingCycle = 0;
-int batteryStatusDisplayVar = 0;
-bool tenPercentClear = false;
-bool fivePercentageStop = false;
-bool batteryCaseBlock = false;
-unsigned long batteryHealthPreviousMillis = 0;
+bool tenPercentClear, fivePercentageStop, batteryCaseBlock = false;
 
 
 void setup()
@@ -82,6 +74,11 @@ void setup()
 }
 
 //////////////////////////SPEEDOMETER//////////////////////////////////
+int secretCount = 0;
+bool hiddenFeature, superHiddenFeature = false;
+unsigned long prevHiddenFeatureMillis = 0;
+int hiddenFeatureInterval = 120000;
+
 void speedometer() //Måler fart hvert 10.dels sekund. Siden readtime = 100.
 {
     unsigned long speedMillis = millis();
@@ -96,6 +93,7 @@ void speedometer() //Måler fart hvert 10.dels sekund. Siden readtime = 100.
         A = 1;
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); //Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
+        negativTotalSpeed = ((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
         speedDistance += totalSpeed/10; //Deler på 10 siden den teller hvert 1/10 sekund. 
         totalDistance += speedDistance;
         distanceAverage += totalSpeed/10;
@@ -190,6 +188,7 @@ void lineFollowMenu()
         batteryLevel();
         maxSpeed_measure();
         averagesInAMinute();
+
         break;
     case 3:
         driveLineStandard();
@@ -500,13 +499,75 @@ void proxBackToMenu()
         display.clear();
         menuVar = 0;
         proxClear = false;
+        secretCount = 0;
     }
     if (buttonB.getSingleDebouncedPress())
     {
         display.clear();
         menuVar = 2;
         proxClear = false;
+        secretCount = 0;
     }
+    if (buttonC.getSingleDebouncedPress()){
+        secretCount += 1;
+    }
+    if (secretCount == 5){
+        menuVar = 9;
+        display.clear();
+    }
+}
+
+void secretMenu(){
+    if(buttonA.getSingleDebouncedPress()){
+        hiddenFeature = true;
+        menuVar = 0;
+        secretCount = 0;
+        display.clear();
+    }
+
+    if(buttonB.getSingleDebouncedPress()){
+
+        if(superHiddenFeature == true){
+            display.clear();
+            display.gotoXY(3, 3);
+            display.print("You can only use");
+            display.gotoXY(1, 4);
+            display.print("super charging once!");
+
+            delay(2000);
+
+            menuVar = 0;
+            display.clear();
+
+        } else {
+            hiddenFeature = true;
+            superHiddenFeature = true;
+            menuVar = 10;
+            display.clear();
+        }
+    secretCount = 0;
+    }
+}
+
+void displaySecretMenu(){
+    display.gotoXY(4,0);
+    display.print("Welcome to the");
+    display.gotoXY(4, 1);
+    display.print("hidden feature:");
+    display.gotoXY(3, 2);
+    display.print("Reverse charging!");
+    display.gotoXY(5,4);
+    display.print("A");
+    display.gotoXY(2,6);
+    display.print("Regular");
+    display.gotoXY(2,7);
+    display.print("Charging");
+    display.gotoXY(15,4);
+    display.print("B");
+    display.gotoXY(13,6);
+    display.print("Super");
+    display.gotoXY(13,7);
+    display.print("Charging");
 }
 
 //////////////////////////Software batteri/////////////////////////////
@@ -637,6 +698,22 @@ void batteryLevel()
         batteryLife -= 1;   
         speedDistance = 0;     
     }
+    if (hiddenFeature == true){ 
+        if (negativTotalSpeed < 0){
+            if (speedDistance > 20){ //Absoultt verdi, derfor over 20
+                batteryLife += 1;
+                speedDistance = 0;
+            }   
+        }
+
+    }
+}
+
+void batteryLevelSuperHidden(){
+    if (speedDistance > 30){
+        batteryLife += 10;
+        speedDistance = 0;
+    }
 }
 
 void batteryLevelDisplay(){
@@ -727,14 +804,7 @@ void chargingMenu()
         batteryHealth();
         break;
     case 2:
-        display.gotoXY(0, 0);
-        display.print(F("Charging"));
-        batteryLife = 100;
-        if (buttonA.getSingleDebouncedPress()){
-        batteryHealthPercentage = batteryHealthPercentage - 3;
-        chargeVar = 1;
-        chargingCycle += 1;
-        }
+        batteryChargingMenu();
         break;
     case 3:
         batteryServiceOrChangeMenu();
@@ -742,29 +812,57 @@ void chargingMenu()
     }
 }
 
+
+
 void batteryChargingMenu(){
     display.gotoXY(0,0);
-    display.print("How much do you wan to charge?");
+    display.print("How much do you want?");
     display.gotoXY(0,2);
-    display.print("A for full battery");
+    display.print("A = full battery->");
+    display.gotoXY(18,2);
+    display.print(batteryCost);
     display.gotoXY(0,4);
-    display.print("B for +25%");
+    display.print("B for +25% -> 50$");
     display.gotoXY(0,6);
-    display.print("C for +10%");
+    display.print("C for +10% -> 20$");
 
     if (buttonA.getSingleDebouncedPress()){
-
+        batteryHealthPercentage = batteryHealthPercentage - 3;
+        chargeVar = 1;
+        chargingCycle += 1;
+        bankAccount -= batteryCost;
+        batteryFull = 1;
+        display.clear();
     } 
+    if (buttonB.getSingleDebouncedPress()){
+        batteryHealthPercentage = batteryHealthPercentage - 3;
+        chargeVar = 1;
+        chargingCycle += 1;
+        bankAccount -= 50;
+        if (batteryLife >= 100){
+            batteryLife = 100;
+            batteryFull = 1;
+        }
+        display.clear();
+    }
+    if (buttonC.getSingleDebouncedPress()){
+        batteryHealthPercentage = batteryHealthPercentage - 3;
+        chargeVar = 1;
+        chargingCycle += 1;
+        bankAccount -= 20;
+        if (batteryLife >= 100){
+            batteryLife = 100;
+            batteryFull = 1;
+        }
+        display.clear();
+    }
 }
 
 void doYouWantToCharge()
 {
+    aAndBFor();
     display.gotoXY(0, 0);
-    display.print(F("Do you want to charge"));
-    display.gotoXY(0, 3);
-    display.print(F("A for YES"));
-    display.gotoXY(12, 3);
-    display.print(F("B for NO"));
+    display.print(F("Do you want to charge?"));
     display.gotoXY(0,5);
     display.print("Bank account: ");
     display.gotoXY(18,5);
@@ -809,6 +907,7 @@ void chargingOrBatteryService()
     if (buttonA.getSingleDebouncedPress())
     {
         chargeVar = 2;
+        batteryCost = (100-batteryLife) * 2;
         display.clear();
     }
     if (buttonB.getSingleDebouncedPress())
@@ -820,6 +919,34 @@ void chargingOrBatteryService()
     {
         chargeVar = 0;
         display.clear();
+    }
+}
+
+void batteryHealthCritical(){
+    display.gotoXY(0,2);
+    display.print("BATTERY CRITICAl!");
+    display.gotoXY(3,3);
+    display.print("FIX NOW!");
+}
+
+void batteryHealthLevel0Or1(){
+    if (batteryHealthPercentage >= 10 && batteryHealthLevel == 0 ){
+        buzzer.playFrequency(1000,1000,15);
+        display.clear();
+        serviceVar = 1;
+        menuVar = 6;
+        batteryHealthLevel = 1;
+        batteryHealthLevel0Or1();
+        delay(3000);
+    }
+    if (batteryHealthPercentage >= 10 && batteryHealthLevel == 1){
+        buzzer.playFrequency(1000,1000,15);
+        display.clear();
+        serviceVar = 2;
+        menuVar = 6;
+        batteryHealthLevel = 0;
+        batteryHealthLevel0Or1();
+        delay(3000);
     }
 }
 
@@ -851,9 +978,6 @@ void batteryServiceOrChangeMenu()
     }
 }
 
-void batteryCharging()
-{
-}
 
 void batteryHealthServiceCost(){
     if (batteryHealthPercentage <= 10){
@@ -896,10 +1020,7 @@ void serviceWillCostMenu(){
     display.print(updatedBatteryHealthPercentage);
     display.gotoXY(0,3);
     display.print("Do you want to pay?");
-    display.gotoXY(0,5);
-    display.print("A for YES");
-    display.gotoXY(12,5);
-    display.print("B for NO");
+    aAndBFor();
     display.gotoXY(0,7);
     display.print("Bank account:");
     display.gotoXY(14,7);
@@ -915,9 +1036,7 @@ void batteryChange(){
     display.gotoXY(0,1);
     display.print("Do you want to change?");
     display.gotoXY(0,3);
-    display.print("A for YES");
-    display.gotoXY(14,3);
-    display.print("B for YES");
+    aAndBFor();
     display.gotoXY(0,7);
     display.print("Bank account:");
     display.gotoXY(14,7);
@@ -958,10 +1077,20 @@ void batteryService(){
     }
 }
 
+void hiddenFeatureTimer(){
+    if (hiddenFeature == true){
+        unsigned long hiddenFeatureMillis = millis();
+        if (hiddenFeatureMillis - prevHiddenFeatureMillis == hiddenFeatureInterval){
+            hiddenFeature = false;
+        }
+    }
+}
+
 
 //////////////////MENU////////////////////////
 void menu()
 {
+    hiddenFeatureTimer();
     switch (menuVar)
     {
     case 0:
@@ -972,6 +1101,7 @@ void menu()
         batteryStatusDisplayVar = 0;
         menuVar = 1;
         serviceVar = 0;
+        patternVar = 0;
         break;
     case 1:
         menuDisplay1();
@@ -996,9 +1126,34 @@ void menu()
         menuDisplay2();
         break;
     case 8:
-        //work
+        display.gotoXY(0,0);
+        display.print("Download other file");
+        break;
+    case 9:
+        displaySecretMenu();
+        secretMenu();
+        break;
+    case 10:
+        reversingHiddenFeature();
+        batteryLevelSuperHidden();
+        batteryLevelDisplay();
+        speedometer();
         break;
     }
+}
+
+
+
+void reversingHiddenFeature(){
+    motors.setSpeeds(-200,-200);
+    display.gotoXY(0,3);
+    display.print("Charging....");
+    if (batteryLife >= 20)
+    {
+        menuVar = 0;
+        motors.setSpeeds(0,0);
+    }
+    
 }
 
 void pressFor(){
@@ -1073,5 +1228,5 @@ void menuDisplay2(){
 void loop()
 {
     menu();
-    
+
 }
