@@ -281,8 +281,6 @@ void driveLinePID()
 void driveLineStandard()
 {
     int Read = lineSensors.readLine(lineSensorValues);
-    // display.gotoXY(9, 4);
-    // display.print(Read);
     if (Read < 2000)
     {
         if (Read < 1750)
@@ -360,7 +358,6 @@ void turndeg(int tilverdi)
             break;
         }
     }
-    // display.print("Heeelo");
 }
 
 void whatPattern()
@@ -1179,6 +1176,9 @@ void hiddenFeatureTimer()
 void menu()
 {
     hiddenFeatureTimer();
+    if (batteryHealthPercentage < 99){
+        batteryHealthPercentage = 99;
+    }
     switch (menuVar)
     {
     case 0:
