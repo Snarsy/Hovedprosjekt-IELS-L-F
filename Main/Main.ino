@@ -25,6 +25,11 @@ int readTime = 100;
 int16_t totalSpeed = 0;
 int speedDistance = 0;
 int totalDistance = 0;
+bool seventyMillis_start = false;
+bool stoppedTimer = false;
+unsigned long prevAveragesMillis = 0;
+int holdTimerValue, secondsAboveSeventy, aboveSeventyCounter, maxSpeed, distanceAverage, averageSpeed60Sec = 0;
+
 
 // Linefollower:
 unsigned int lineSensorValues[5] = {0, 0, 0, 0, 0}; // 5 sensorer
@@ -53,11 +58,10 @@ int batteryFull = 1;
 int batteryHealthAddress = 0;
 int batteryHealthPercentage = EEPROM.read(batteryHealthAddress);
 int updatedBatteryHealthPercentage = 0;
-int chanceForBatteryMalfunction = 1000;
+int chanceForBatteryMalfunction = 10000;
 unsigned long batteryStatusPreviousMillis = 0;
 unsigned long batteryDisplayPreviousMillis = 0;
-unsigned long batteryDisplayMillis;
-unsigned long batteryStatusMillis;
+unsigned long batteryDisplayMillis, batteryStatusMillis, batteryHealthMillis;
 int intervalBatteryStatus = 10000;
 int intervalBatteryDisplay = 1000;
 int chargingCycle = 0;
@@ -66,7 +70,7 @@ bool tenPercentClear = false;
 bool fivePercentageStop = false;
 bool batteryCaseBlock = false;
 unsigned long batteryHealthPreviousMillis = 0;
-unsigned long batteryHealthMillis;
+
 
 void setup()
 {
@@ -78,7 +82,7 @@ void setup()
 }
 
 //////////////////////////SPEEDOMETER//////////////////////////////////
-void speedometer()
+void speedometer() //Måler fart hvert 10.dels sekund. Siden readtime = 100.
 {
     unsigned long speedMillis = millis();
     if (A == 1)
@@ -91,16 +95,30 @@ void speedometer()
         int16_t lastSpeed = encoder.getCountsLeft() + encoder.getCountsRight();
         A = 1;
         previousSpeedMillis = speedMillis;
-        totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
-        speedDistance += totalSpeed/10;
+        totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); //Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
+        speedDistance += totalSpeed/10; //Deler på 10 siden den teller hvert 1/10 sekund. 
         totalDistance += speedDistance;
-        
-        chanceForReductionOfBatteryHealth();
-
+        distanceAverage += totalSpeed/10;
+        chanceForReductionOfBatteryHealth();   //Random faktoren for at batteriet mister 50%.
+        maxSpeed70Percent(); 
     }
 }
 
-void speedometerDisplay(){
+void maxSpeed70Percent(){ //Teller hvor mange ganger farten er over 70% av maxspeed.
+    int aboveSeventySpeed = (maxSpeed * 0.7);
+
+    if ((totalSpeed > aboveSeventySpeed)){
+        aboveSeventyCounter += 1;
+    }
+}
+
+void maxSpeed_measure(){ //Måler maxspeed
+    if (totalSpeed > maxSpeed){
+        maxSpeed = totalSpeed;
+    }
+}
+
+void speedometerDisplay(){ //Displayer hastighet
         display.gotoXY(0, 5);
         display.print(F("Hastighet: "));
         display.gotoXY(10, 5);
@@ -119,6 +137,40 @@ void distanceDisplay(){
     display.print(F("m"));
 }
 
+void averagesInAMinute(){
+    unsigned long averagesMillis = millis(); //AveragesMillis skal være lik millis hele tiden
+
+    if (seventyMillis_start == false){ //Tiden skal starte samtidig, men prevAveragesMillis skal kun startes en gang
+        prevAveragesMillis = millis();
+        seventyMillis_start = true;
+    }
+
+    if (totalSpeed == 0){ //Dersom Zumo stopper skal den "holde" tida
+        if (stoppedTimer == false){
+            holdTimerValue += (averagesMillis - prevAveragesMillis);
+            stoppedTimer = true;
+        }
+        prevAveragesMillis = averagesMillis;
+    } else {
+        stoppedTimer = false;
+    }
+
+    if ((averagesMillis - prevAveragesMillis) > (60000 - holdTimerValue)){
+        secondsAboveSeventy = (aboveSeventyCounter/10); //Tar inn hvor mange ganger den har telt at farten er over 70% av maks, og deler på 10 fordi den teller 10 ganger i sekundet
+
+        averageSpeed60Sec = distanceAverage/60; //Tar inn totaldistanse over ett minutt og deler på 60 sekund, som gir cm/s
+        batteryHealthAfterAverageMeasure(); //Reduserer batterihelsen ut av infoen her
+
+        distanceAverage = 0;
+        aboveSeventyCounter = 0;
+        maxSpeed = 0;
+
+        prevAveragesMillis = averagesMillis;
+        holdTimerValue = 0;
+    }
+} 
+
+
 //////////////////////////LINEFOLLOWER/////////////////////////////////
 void lineFollowMenu()
 {
@@ -136,7 +188,8 @@ void lineFollowMenu()
         statusDisplay();
         speedometer();
         batteryLevel();
-        
+        maxSpeed_measure();
+        averagesInAMinute();
         break;
     case 3:
         driveLineStandard();
@@ -144,19 +197,18 @@ void lineFollowMenu()
         statusDisplay();
         speedometer();
         batteryLevel();
-        
+        maxSpeed_measure();
+        averagesInAMinute();
         break;
     }
 }
 
 void doYouWantToCalibrate()
 {
+    aAndBFor();
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
-    display.gotoXY(0, 3);
-    display.print(F("A for YES"));
-    display.gotoXY(12, 3);
-    display.print(F("B for NO"));
+    
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
@@ -172,26 +224,23 @@ void doYouWantToCalibrate()
 
 void lineFollowMenuDisplay()
 {
-    display.gotoXY(0, 0);
-    display.print(F("Press A for: "));
+    pressFor();
     display.gotoXY(0, 1);
     display.print(F("DriveLinePID"));
-    display.gotoXY(0, 3);
-    display.print(F("Press B for: "));
     display.gotoXY(0, 4);
     display.print(F("DriveLineStandard"));
-    display.gotoXY(0, 6);
-    display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("Back"));
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
+        delay(1000);
         lineFollowMenuVar = 2;
     }
     if (buttonB.getSingleDebouncedPress())
     {
         display.clear();
+        delay(1000);
         lineFollowMenuVar = 3;
     }
     if (buttonC.getSingleDebouncedPress())
@@ -209,7 +258,7 @@ void driveLinePID()
     //display.gotoXY(9,4);
     //display.print(position);
     int16_t error = position - 2000;
-    int16_t speedDifference = error/5 + 2* (error - lastError);    
+    int16_t speedDifference = error/0.5 + 4* (error - lastError);    
 
     lastError = error;
 
@@ -303,16 +352,11 @@ void turndeg(int tilverdi){ //87 grader er lik 90
 }
 
 void whatPattern(){
-    display.gotoXY(0, 0);
-    display.print(F("Press A for: "));
+    pressFor();
     display.gotoXY(0, 1);
     display.print(F("Square"));
-    display.gotoXY(0, 3);
-    display.print(F("Press B for: "));
     display.gotoXY(0, 4);
     display.print(F("Circle"));
-    display.gotoXY(0, 6);
-    display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("ForwardBackward"));
     if (buttonA.getSingleDebouncedPress())
@@ -332,12 +376,10 @@ void whatPattern(){
     }
 }
 void calibratepattern(){
+    aAndBFor();
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
-    display.gotoXY(0, 3);
-    display.print(F("A for YES"));
-    display.gotoXY(12, 3);
-    display.print(F("B for NO"));
+    
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
@@ -452,11 +494,7 @@ void proxBackToMenu()
     }
     display.gotoXY(0, 0);
     display.print(F("Back to menu?"));
-    display.gotoXY(0, 3);
-    display.print(F("A for YES"));
-    display.gotoXY(12, 3);
-    display.print(F("B for NO"));
-    display.gotoXY(0, 6);
+    aAndBFor();
     if (buttonA.getSingleDebouncedPress())
     {
         display.clear();
@@ -472,11 +510,6 @@ void proxBackToMenu()
 }
 
 //////////////////////////Software batteri/////////////////////////////
-/*Hvert 10. sekund skal dette displayes i 1. sekund:
-i. battery_level - Ladeprosenten for batteriet (0-100%)
-ii. charging_cycles - Ant. ganger batteriet har blitt ladet
-iii. battery_health - Helsetilstanden til batteriet. Se pkt. nedenfor
-*/
 void batteryStatusTimer(){
     batteryStatusMillis = millis();
     if (batteryStatusMillis - batteryStatusPreviousMillis > intervalBatteryStatus){
@@ -623,28 +656,6 @@ void batteryLevelDisplay(){
 
 
 
-
-/*Kan bare benyttes en gang
-Etter knappetrykk skal den lade 10x raskere når den rygges. Opp til 20%
-*/
-void EmergencyCharging()
-{
-}
-
-void backwardsCharging()
-{
-}
-
-/*
-Batteri meny skal ha funksjon av display:
-Batterystatus
-Emergency charging
-Angre funksjon
-*/
-void batteryMenu()
-{
-}
-
 ///////////////////////Helsetilstand////////////////////////////////////
 // Batteri helse fra 0-100, der 100 er beste verdi
 void batteryHealth()
@@ -692,10 +703,16 @@ void batteryMalfunction(){
     }
 }
 
-///////////////Ladestasjon///////////////////////////////////
-void goToCharging()
-{
+void batteryHealthAfterAverageMeasure(){
+    int batteryEffectSecondsAboveSeventy = secondsAboveSeventy*0.25;
+    int batteryEffectAverageSpeed60Sec = averageSpeed60Sec*0.25;
+    int batteryEffectMaxSpeed = maxSpeed * 0.05;
+    int batteryEffectSum = (batteryEffectAverageSpeed60Sec + batteryEffectSecondsAboveSeventy) * batteryEffectMaxSpeed; 
+    batteryHealthPercentage -= batteryEffectSum;
+    //buzzer.playFrequency(250,1000,15);
 }
+
+
 
 // Hvis med ladestasjon, dukker dette displayet opp.
 void chargingMenu()
@@ -723,6 +740,21 @@ void chargingMenu()
         batteryServiceOrChangeMenu();
         break;
     }
+}
+
+void batteryChargingMenu(){
+    display.gotoXY(0,0);
+    display.print("How much do you wan to charge?");
+    display.gotoXY(0,2);
+    display.print("A for full battery");
+    display.gotoXY(0,4);
+    display.print("B for +25%");
+    display.gotoXY(0,6);
+    display.print("C for +10%");
+
+    if (buttonA.getSingleDebouncedPress()){
+
+    } 
 }
 
 void doYouWantToCharge()
@@ -767,16 +799,11 @@ void doYouWantToCharge()
 
 void chargingOrBatteryService()
 {
-    display.gotoXY(0, 0);
-    display.print(F("Press A for: "));
+    pressFor();
     display.gotoXY(0, 1);
     display.print(F("Charging"));
-    display.gotoXY(0, 3);
-    display.print(F("Press B for: "));
     display.gotoXY(0, 4);
     display.print(F("Battery service")); // service eller replacement
-    display.gotoXY(0, 6);
-    display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("Back"));
     if (buttonA.getSingleDebouncedPress())
@@ -798,16 +825,11 @@ void chargingOrBatteryService()
 
 void batteryServiceOrChangeMenu()
 {
-    display.gotoXY(0, 0);
-    display.print(F("Press A for: "));
+    pressFor();
     display.gotoXY(0, 1);
     display.print(F("Change of battery"));
-    display.gotoXY(0, 3);
-    display.print(F("Press B for: "));
     display.gotoXY(0, 4);
     display.print(F("Battery service")); 
-    display.gotoXY(0, 6);
-    display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("Back"));
     if (buttonA.getSingleDebouncedPress())
@@ -853,7 +875,8 @@ void batteryHealthServiceCost(){
     serviceWillCostMenu();
     
     if (buttonA.getSingleDebouncedPress()){
-    updateBankAccountEeprom(); 
+     updateBankAccountEeprom(); 
+     calibratePaymentBatteryService();
     }
 
     if (buttonB.getSingleDebouncedPress()){
@@ -964,6 +987,7 @@ void menu()
         break;
     case 5:
         proxBackToMenu();
+        speedometer();
         break;
     case 6:
         batteryService(); 
@@ -977,18 +1001,30 @@ void menu()
     }
 }
 
-void menuDisplay1()
-{
+void pressFor(){
     display.gotoXY(0, 0);
     display.print(F("Press A for: "));
-    display.gotoXY(0, 1);
-    display.print(F("lineFollow"));
     display.gotoXY(0, 3);
     display.print(F("Press B for: "));
-    display.gotoXY(0, 4);
-    display.print(F("ChargingMenu"));
     display.gotoXY(0, 6);
     display.print(F("Press C for: "));
+
+}
+
+void aAndBFor(){
+    display.gotoXY(0, 3);
+    display.print(F("A for YES"));
+    display.gotoXY(12, 3);
+    display.print(F("B for NO"));
+}
+
+void menuDisplay1()
+{
+    pressFor();
+    display.gotoXY(0, 1);
+    display.print(F("lineFollow"));
+    display.gotoXY(0, 4);
+    display.print(F("ChargingMenu"));
     display.gotoXY(0, 7);
     display.print(F("Next"));
     if (buttonA.getSingleDebouncedPress())
@@ -1009,16 +1045,11 @@ void menuDisplay1()
 }
 
 void menuDisplay2(){
-    display.gotoXY(0, 0);
-    display.print(F("Press A for: "));
+    pressFor();
     display.gotoXY(0, 1);
     display.print(F("Work"));
-    display.gotoXY(0, 3);
-    display.print(F("Press B for: "));
     display.gotoXY(0, 4);
     display.print(F("Drivingpattern"));
-    display.gotoXY(0, 6);
-    display.print(F("Press C for: "));
     display.gotoXY(0, 7);
     display.print(F("Next"));
      
