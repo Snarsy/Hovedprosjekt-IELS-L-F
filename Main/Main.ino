@@ -323,7 +323,6 @@ int sjekk2;
 int vinkel;
 int rotation = 0;
 int turns;
-char fargetrykk = 'D';
 unsigned long patternmillis;
 #include "Turnsensor.h"
 void turndeg(int tilverdi){ //87 grader er lik 90
