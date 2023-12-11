@@ -24,7 +24,7 @@ int A = 1;
 int16_t firstSpeed = 0;
 int readTime = 100;
 int16_t totalSpeed = 0;
-int16_t negativeTotalSpeed = 0;
+int16_t originalTotalSpeed = 0;
 bool seventyMillis_start, stoppedTimer = false;
 int holdTimerValue, secondsAboveSeventy, aboveSeventyCounter, maxSpeed, distanceAverage, averageSpeed60Sec = 0;
 
@@ -90,7 +90,7 @@ void speedometer() // Måler fart hvert 10.dels sekund. Siden readtime = 100.
         A = 1;
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); // Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
-        negativeTotalSpeed = totalSpeed * -1;
+        originalTotalSpeed =((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
         speedDistance += totalSpeed / 10; // Deler på 10 siden den teller hvert 1/10 sekund.
         totalDistance += speedDistance;
         distanceAverage += totalSpeed / 10;
@@ -749,7 +749,7 @@ void batteryLevel()
     }
     if (hiddenFeature == true)
     {
-        if (negativeTotalSpeed < 0)
+        if (originalTotalSpeed < 0)
         {
             if (speedDistance > 20)
             { // Absoultt verdi, derfor over 20
@@ -762,7 +762,7 @@ void batteryLevel()
 
 void batteryLevelSuperHidden()
 {
-    if (speedDistance > 30)
+    if (speedDistance > 50)
     {
         batteryLife += 10;
         speedDistance = 0;
