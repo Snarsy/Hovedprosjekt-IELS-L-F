@@ -322,7 +322,6 @@ int sjekk2;
 int vinkel;
 int rotation = 0;
 int turns;
-char fargetrykk = 'D';
 unsigned long patternmillis;
 #include "Turnsensor.h"
 void turndeg(int tilverdi){ //87 grader er lik 90
@@ -569,7 +568,6 @@ void displaySecretMenu(){
     display.gotoXY(13,7);
     display.print("Charging");
 }
-
 //////////////////////////Software batteri/////////////////////////////
 void batteryStatusTimer(){
     batteryStatusMillis = millis();
