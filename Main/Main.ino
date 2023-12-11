@@ -796,9 +796,6 @@ void batteryHealth()
     {
         batteryHealthPercentage = 0;
     }
-
-    updateBatteryHealthEeprom();
-    // chanceForReductionOfBatteryHealth();
 }
 
 void updateBatteryHealthEeprom()
@@ -1175,6 +1172,10 @@ void menu()
     if (batteryHealthPercentage < 99){
         batteryHealthPercentage = 99;
     }
+
+    updateBankAccountEeprom();
+    updateBatteryHealthEeprom();
+
     switch (menuVar)
     {
     case 0:
