@@ -212,6 +212,7 @@ void iceCreamDelivery(){
 }
 
 void youHaveACustomer(){
+    display.clear();
     buzzer.playFrequency(1000,1000,10);
     motors.setSpeeds(0,0);
     bankEarnings = random(50);
@@ -341,6 +342,7 @@ void calibrating()
     }
     display.clear();
     motors.setSpeeds(0, 0);
+    delay(1000);
 }
 
 
