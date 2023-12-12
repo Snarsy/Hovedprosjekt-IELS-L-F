@@ -128,7 +128,7 @@ void speedometerDisplay()
 }
 
 void distanceDisplay()
-{
+{ //Displayer distanse
     int16_t distanceInMeters = totalDistance / 100;
     display.gotoXY(0, 7);
     display.print(F("Distanse:"));
@@ -139,7 +139,7 @@ void distanceDisplay()
 }
 
 void averagesInAMinute()
-{
+{ //Teller gjennomsnittshastighet, maxspeed og antall ganger over 70% på 1 minutt.
     unsigned long averagesMillis = millis(); // AveragesMillis skal være lik millis hele tiden
 
     if (seventyMillis_start == false)
@@ -180,7 +180,7 @@ void averagesInAMinute()
 
 //////////////////////////LINEFOLLOWER/////////////////////////////////
 void lineFollowMenu()
-{
+{ //LinefollowMenuSwitchCase
     switch (lineFollowMenuVar)
     {
     case 0:
@@ -213,7 +213,7 @@ void lineFollowMenu()
 }
 
 void doYouWantToCalibrate()
-{
+{ //Spør om man vil calibrate
     aAndBFor();
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
@@ -232,7 +232,7 @@ void doYouWantToCalibrate()
 }
 
 void lineFollowMenuDisplay()
-{
+{ //Display for valg av linjefølging
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("DriveLinePID"));
@@ -261,29 +261,24 @@ void lineFollowMenuDisplay()
 }
 
 void driveLinePID()
-{
-    int16_t position = lineSensors.readLine(lineSensorValues);
-
-    // display.gotoXY(9,4);
-    // display.print(position);
-    int16_t error = position - 2000;
-    int16_t speedDifference = error / 1 + 4 * (error - lastError);
+{ //Linjefølging tatt fra Kevin Pololu. 
+    int16_t position = lineSensors.readLine(lineSensorValues); //Leser linjeesensor. 
+    int16_t error = position - 2000; //Finnet ut om det er venstre eller høyre som er mer utenfor linjen.
+    int16_t speedDifference = error / 1 + 4 * (error - lastError); 
 
     lastError = error;
 
     int leftSpeed = followLinemaxSpeed + speedDifference;
     int rightSpeed = followLinemaxSpeed - speedDifference;
-    leftSpeed = constrain(leftSpeed, 0, (int16_t)followLinemaxSpeed);
+    leftSpeed = constrain(leftSpeed, 0, (int16_t)followLinemaxSpeed); //Constrain for å ikke få minus, og ikke over 400 verdi. 
     rightSpeed = constrain(rightSpeed, 0, (int16_t)followLinemaxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void driveLineStandard()
-{
+{ //Linjefølging der den ser hvilke side som er mer utenfor linje, og så gir meg motorkraft til den motoren som er utenfor.
     int Read = lineSensors.readLine(lineSensorValues);
-    // display.gotoXY(9, 4);
-    // display.print(Read);
     if (Read < 2000)
     {
         if (Read < 1750)
@@ -315,7 +310,7 @@ void driveLineStandard()
 }
 
 void calibrating()
-{
+{ //Kalibrerer linjesensor
     for (int i = 0; i < 60; i++)
     {
         motors.setSpeeds(200, -200);
@@ -336,12 +331,13 @@ unsigned long patternmillis;
 #include "Turnsensor.h"
 void turndeg(int tilverdi)
 { // 87 grader er lik 90
+  // Snur den 90 grader. 
     delay(5);
     sjekk1 = 0;
     sjekk2 = 0;
     tilverdi += 180;
     turnSensorReset();
-    while (vinkel <= tilverdi || vinkel >= tilverdi)
+    while (vinkel <= tilverdi || vinkel >= tilverdi) 
     {
         turnSensorUpdate();
         vinkel = ((((int32_t)turnAngle >> 16) * -360) >> 16) + 180;
@@ -361,11 +357,10 @@ void turndeg(int tilverdi)
             break;
         }
     }
-    // display.print("Heeelo");
 }
 
 void whatPattern()
-{
+{ //Meny for hvilke mønster. 
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("Square"));
@@ -390,7 +385,7 @@ void whatPattern()
     }
 }
 void calibratepattern()
-{
+{ //Spør om den vil kalibrere gyroskop
     aAndBFor();
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
@@ -409,7 +404,7 @@ void calibratepattern()
 }
 
 void Patternmenu()
-{
+{ //Switch case for mønsterkjøring
     switch (patternVar)
     {
     case 0:
@@ -443,7 +438,7 @@ void Patternmenu()
 }
 
 void squarePattern()
-{
+{ //Kjører i firkant
     if (millis() - patternmillis > 200)
     {
         if (millis() - patternmillis < 1000 && turns < 4)
@@ -464,7 +459,7 @@ void squarePattern()
     }
 }
 void circlePattern()
-{
+{ //Kjører i sirkel
     if (millis() - patternmillis > 500)
     {
         motors.setSpeeds(200, 100);
@@ -479,7 +474,7 @@ void circlePattern()
     }
 }
 void forwardBackpattern()
-{
+{ //Kjører fram og tilbake
     if (millis() - patternmillis > 500)
     {
         motors.setSpeeds(200, 200);
@@ -499,7 +494,7 @@ void forwardBackpattern()
 
 /////////////////////////PROX STOP/////////////////////////////////////
 void footInFront()
-{
+{ //Registerer om noe er veldig nærme zumoen, og stopper den. 
     proxSensor.read();
     uint16_t frontleftPosition = proxSensor.countsFrontWithLeftLeds();
     uint16_t frontrightPosition = proxSensor.countsFrontWithRightLeds();
@@ -513,7 +508,8 @@ void footInFront()
 }
 
 void proxBackToMenu()
-{
+{ /* Vil du tilbake til meny? Kommer fra footinfront
+    Har også hidden feature*/
     if (proxClear == false)
     {
         display.clear();
@@ -548,7 +544,7 @@ void proxBackToMenu()
 }
 
 void secretMenu()
-{
+{ // Hemmelig meny
     if (buttonA.getSingleDebouncedPress())
     {
         hiddenFeature = true;
@@ -560,7 +556,7 @@ void secretMenu()
     if (buttonB.getSingleDebouncedPress())
     {
 
-        if (superHiddenFeature == true)
+        if (superHiddenFeature == true) //Hvis superHiddenfeature er blitt brukt før
         {
             display.clear();
             display.gotoXY(3, 3);
@@ -576,7 +572,7 @@ void secretMenu()
         else
         {
             hiddenFeature = true;
-            superHiddenFeature = true;
+            superHiddenFeature = true; //Første gangen superhiddenfeature blir brukt.
             menuVar = 10;
             display.clear();
         }
@@ -585,7 +581,7 @@ void secretMenu()
 }
 
 void displaySecretMenu()
-{
+{ //Displayer hemmelig meny
     display.gotoXY(4, 0);
     display.print("Welcome to the");
     display.gotoXY(4, 1);
@@ -607,7 +603,7 @@ void displaySecretMenu()
 }
 //////////////////////////Software batteri/////////////////////////////
 void batteryStatusTimer()
-{
+{ //Teller 10 sekund før den bytter til en annen variabel, slik at batterydisplay vises.
     batteryStatusMillis = millis();
     if (batteryStatusMillis - batteryStatusPreviousMillis > intervalBatteryStatus)
     {
@@ -620,7 +616,7 @@ void batteryStatusTimer()
 }
 
 void batteryDisplay()
-{
+{ //Vises i kort tid, og går så tilbake til normal display.
     batteryDisplayMillis = millis();
     display.gotoXY(0, 0);
     display.print(F("BatteryLevel: "));
@@ -644,10 +640,10 @@ void batteryDisplay()
 }
 
 void statusDisplay()
-{
+{ //Switch case som velger hva som skal displayes under kjøring.
     switch (batteryStatusDisplayVar)
     {
-    case 0:
+    case 0: 
         speedometerDisplay();
         distanceDisplay();
         batteryLevelDisplay();
@@ -660,11 +656,9 @@ void statusDisplay()
         break;
     case 2:
         lowBatteryDisplay();
-        // batteryLevelDisplay();
         break;
     case 3:
         chargeBatteryDisplay();
-        // batteryLevelDisplay();
         break;
     case 4:
         emptyBatteryDisplay();
@@ -674,7 +668,7 @@ void statusDisplay()
 }
 
 void emptyBatteryDisplay()
-{
+{ //Displayes hvis det er tomt battery
     motors.setSpeeds(0, 0);
     display.clear();
     menuVar = 3;
@@ -682,12 +676,12 @@ void emptyBatteryDisplay()
 }
 
 void chargeBatteryDisplay()
-{
+{ //Stopper for at man må lade.
     if (fivePercentageStop == false)
     {
         display.clear();
         batteryHealthPercentage -= 5; // HVER GANG DEN GÅR TIL 5 PROSENT
-        fivePercentageStop = true;                             // SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
+        fivePercentageStop = true;    // SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
         updateBatteryHealthEeprom();
     }
     motors.setSpeeds(0, 0);
@@ -696,7 +690,7 @@ void chargeBatteryDisplay()
 }
 
 void lowBatteryDisplay()
-{
+{ //Hvis det er ti prosent batteri, sier ifra. 
     if (tenPercentClear == false)
     {
         display.clear();
@@ -716,7 +710,7 @@ void lowBatteryDisplay()
 }
 
 void batteryCase()
-{
+{ //Velger hva som skal displayes. 
     if (batteryCaseBlock == false)
     {
         if (batteryLife > 100)
@@ -738,7 +732,7 @@ void batteryCase()
         {
             if (fivePercentageStop == false)
             {
-                batteryStatusDisplayVar = 3;
+                batteryStatusDisplayVar = 3; 
             }
         }
         else if (batteryLife == 0)
@@ -750,13 +744,13 @@ void batteryCase()
 
 // Batteri nivå fra 0-100
 void batteryLevel()
-{
+{ //Tapper 1% hver gang man har kjørt over 20m
     if (speedDistance > 20)
     {
         batteryLife -= 1;
         speedDistance = 0;
     }
-    if (hiddenFeature == true)
+    if (hiddenFeature == true) //Hvis hidden feature er på, revers blir + på batteri. 
     {
         if (negativeTotalSpeed < 0)
         {
@@ -770,7 +764,7 @@ void batteryLevel()
 }
 
 void batteryLevelSuperHidden()
-{
+{ //Gjør det veldig raskt å rygge hvis man tar superhiddenfeature. 
     if (speedDistance > 50)
     {
         batteryLife += 10;
@@ -779,7 +773,7 @@ void batteryLevelSuperHidden()
 }
 
 void batteryLevelDisplay()
-{
+{ //Batteriprosent displayes oppe til høyre. 
     if (batteryLife == 100)
     {
         display.gotoXY(18, 0);
@@ -800,7 +794,7 @@ void batteryLevelDisplay()
 ///////////////////////Helsetilstand////////////////////////////////////
 // Batteri helse fra 0-100, der 100 er beste verdi
 void batteryHealth()
-{
+{ //Hvis batterihelsen blir 0 av en grunn, blir 0 istedet. 
     if (batteryHealthPercentage < 0)
     {
         batteryHealthPercentage = 0;
@@ -808,17 +802,17 @@ void batteryHealth()
 }
 
 void updateBatteryHealthEeprom()
-{
+{ //Oppdaterer eeprom til batterihelse
     EEPROM.write(batteryHealthAddress, batteryHealthPercentage);
 }
 
 void updateBankAccountEeprom()
-{
+{ //oppdaterer eeprom til bankkonto
     EEPROM.write(bankAccountAddress, bankAccount);
 }
 
 void chanceForReductionOfBatteryHealth()
-{
+{ //Random sjanse for at batterihelsen halveres. 
     long RandomCheckBatteryMalfunction = random(1, chanceForBatteryMalfunction);
     if (RandomCheckBatteryMalfunction == 1)
     {
@@ -831,7 +825,7 @@ void chanceForReductionOfBatteryHealth()
 }
 
 void batteryMalfunction()
-{
+{ //Display for hvis batterihelsen halveres
     batteryHealthMillis = millis();
     display.gotoXY(5, 4);
     display.print(F("MALFUNCTION"));
@@ -849,7 +843,7 @@ void batteryMalfunction()
 }
 
 void batteryHealthAfterAverageMeasure()
-{
+{ //Hvor mye gjennomsnittsverdiene skal gi effekt på batterihelsen. 
     int batteryEffectSecondsAboveSeventy = secondsAboveSeventy * 0.25;
     int batteryEffectAverageSpeed60Sec = averageSpeed60Sec * 0.25;
     int batteryEffectMaxSpeed = maxSpeed * 0.1;
@@ -861,9 +855,9 @@ void batteryHealthAfterAverageMeasure()
     buzzer.playFrequency(250,1000,15);
 }
 
-// Hvis med ladestasjon, dukker dette displayet opp.
+
 void chargingMenu()
-{
+{ //LadeMeny
     switch (chargeVar)
     {
     case 0:
@@ -882,7 +876,8 @@ void chargingMenu()
     }
 }
 
-void notEnoughMoney(){
+void notEnoughMoney()
+{ //Tar deg tilbake til start siden man ikke har nok penger. 
     display.clear();
     display.gotoXY(0,3);
     display.print("Not enough money!");
@@ -893,7 +888,7 @@ void notEnoughMoney(){
 }
 
 void batteryChargingMenu()
-{
+{ //Hvor mye strøm vil man kjøpe? 10%, 25% eller fulladet.
     display.gotoXY(0, 0);
     display.print("How much do you want?");
     display.gotoXY(0, 2);
@@ -964,7 +959,7 @@ void batteryChargingMenu()
 }
 
 void doYouWantToCharge()
-{
+{ //Vil du lagre? Viser også info om batteri og konto. 
     aAndBFor();
     if (batteryHealthPercentage > 99){
         batteryHealthPercentage = 99;
@@ -1006,7 +1001,7 @@ void doYouWantToCharge()
 }
 
 void chargingOrBatteryService()
-{
+{ //Vil du lade eller fikse batterihelse?
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("Charging"));
@@ -1033,7 +1028,7 @@ void chargingOrBatteryService()
 }
 
 void batteryHealthCritical()
-{
+{ //Display på at batterihelsen er dø. 
     display.gotoXY(0, 2);
     display.print("BATTERY CRITICAL!");
     display.gotoXY(3, 3);
@@ -1041,7 +1036,9 @@ void batteryHealthCritical()
 }
 
 void batteryHealthLevel0Or1()
-{
+{   /*Hvis batterihelsen går ned til 10. Første gang vil den gå til service, 
+    men andre gangen må man bytte batteri
+    */
     if (batteryHealthPercentage <= 10 && batteryHealthLevel == 0)
     {
         buzzer.playFrequency(1000, 1000, 15);
@@ -1063,7 +1060,7 @@ void batteryHealthLevel0Or1()
 }
 
 void batteryServiceOrChangeMenu()
-{
+{   //Vil du bytte batteri eller ta service på batterihelsen?
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("Change of battery"));
@@ -1091,7 +1088,7 @@ void batteryServiceOrChangeMenu()
 }
 
 void batteryHealthServiceCost()
-{
+{ //Hvor mye service koster
     if (batteryHealthPercentage <= 10)
     {
         display.gotoXY(0, 0);
@@ -1133,7 +1130,7 @@ void batteryHealthServiceCost()
 }
 
 void serviceWillCostMenu()
-{
+{ //display på hvor mye batteriet koster. 
     display.gotoXY(0, 0);
     display.print("Service will cost:");
     display.gotoXY(18, 0);
@@ -1152,7 +1149,7 @@ void serviceWillCostMenu()
 }
 
 void batteryChange()
-{
+{ //Display på hvor mye endring av batteri vil koste. 
     display.gotoXY(0, 0);
     display.print("This will cost:");
     display.gotoXY(15, 0);
@@ -1188,7 +1185,7 @@ void batteryChange()
 }
 
 void calibratePaymentBatteryService()
-{
+{ //Kalibrerer kjøp og går til meny. 
     display.clear();
     display.gotoXY(0, 3);
     display.print("Calibrating payment...");
@@ -1207,7 +1204,7 @@ void calibratePaymentBatteryService()
 }
 
 void batteryService()
-{
+{  //Batteriservice switch case
     switch (serviceVar)
     {
     case 1:
@@ -1220,7 +1217,7 @@ void batteryService()
 }
 
 void hiddenFeatureTimer()
-{
+{ //Så lenge hiddenFeatureTimer
     if (hiddenFeature == true)
     {
         unsigned long hiddenFeatureMillis = millis();
@@ -1233,7 +1230,7 @@ void hiddenFeatureTimer()
 
 //////////////////MENU////////////////////////
 void menu()
-{
+{ //Menyswitchcase
     hiddenFeatureTimer();
     if (batteryHealthPercentage > 99){
         batteryHealthPercentage = 99;
@@ -1290,7 +1287,7 @@ void menu()
 }
 
 void reversingHiddenFeature()
-{
+{ //Rygger og lader frem til 20%
     motors.setSpeeds(-200, -200);
     display.gotoXY(0, 3);
     display.print("Charging....");
@@ -1305,7 +1302,7 @@ void reversingHiddenFeature()
 }
 
 void pressFor()
-{
+{ //Display for hver gang man ønsker dette skrevet:
     display.gotoXY(0, 0);
     display.print(F("Press A for: "));
     display.gotoXY(0, 3);
@@ -1315,7 +1312,7 @@ void pressFor()
 }
 
 void aAndBFor()
-{
+{ //display for hver gang man ønsker dette skrevet:
     display.gotoXY(0, 3);
     display.print(F("A for YES"));
     display.gotoXY(12, 3);
@@ -1323,7 +1320,7 @@ void aAndBFor()
 }
 
 void menuDisplay1()
-{
+{ //Første siden på menydisplay
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("lineFollow"));
@@ -1349,7 +1346,7 @@ void menuDisplay1()
 }
 
 void menuDisplay2()
-{
+{ //2. siden på menydisplay
     pressFor();
     display.gotoXY(0, 1);
     display.print(F("Work"));
@@ -1377,5 +1374,5 @@ void menuDisplay2()
 
 void loop()
 {
-    menu();
+    menu(); //Switch case meny.
 }
