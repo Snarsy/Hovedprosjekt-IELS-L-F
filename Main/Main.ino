@@ -267,7 +267,7 @@ void driveLinePID()
     // display.gotoXY(9,4);
     // display.print(position);
     int16_t error = position - 2000;
-    int16_t speedDifference = error / 0.5 + 4 * (error - lastError);
+    int16_t speedDifference = error / 1 + 4 * (error - lastError);
 
     lastError = error;
 
@@ -1117,8 +1117,12 @@ void batteryHealthServiceCost()
 
     if (buttonA.getSingleDebouncedPress())
     {
-        updateBankAccountEeprom();
+        if (bankAccount < batteryCost){
+            notEnoughMoney();
+        } else{
         calibratePaymentBatteryService();
+        updateBankAccountEeprom();
+        }
     }
 
     if (buttonB.getSingleDebouncedPress())
