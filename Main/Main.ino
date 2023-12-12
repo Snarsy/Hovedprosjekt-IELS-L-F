@@ -879,6 +879,16 @@ void chargingMenu()
     }
 }
 
+void notEnoughMoney(){
+    display.clear();
+    display.gotoXY(0,3);
+    display.print("Not enough money!");
+    display.gotoXY(0,4);
+    display.print("Transfering to menu");
+    delay(3000);
+    menuVar = 0;
+}
+
 void batteryChargingMenu()
 {
     display.gotoXY(0, 0);
@@ -894,6 +904,9 @@ void batteryChargingMenu()
 
     if (buttonA.getSingleDebouncedPress())
     {
+       if (bankAccount < batteryCost){
+        notEnoughMoney();
+       } else{
         batteryHealthPercentage = batteryHealthPercentage - 3;
         updateBatteryHealthEeprom();
         chargeVar = 1;
@@ -902,9 +915,13 @@ void batteryChargingMenu()
         updateBankAccountEeprom();
         batteryFull = 1;
         display.clear();
+       }
     }
     if (buttonB.getSingleDebouncedPress())
     {
+        if (bankAccount < 50){
+            notEnoughMoney();
+        } else{
         batteryHealthPercentage = batteryHealthPercentage - 3;
         updateBatteryHealthEeprom();
         chargeVar = 1;
@@ -917,9 +934,13 @@ void batteryChargingMenu()
             batteryFull = 1;
         }
         display.clear();
+        }
     }
     if (buttonC.getSingleDebouncedPress())
     {
+        if (bankAccount < 20){
+            notEnoughMoney();
+        } else{
         batteryHealthPercentage = batteryHealthPercentage - 3;
         updateBatteryHealthEeprom();
         chargeVar = 1;
@@ -932,6 +953,7 @@ void batteryChargingMenu()
             batteryFull = 1;
         }
         display.clear();
+        }
     }
 }
 
@@ -1074,6 +1096,7 @@ void batteryHealthServiceCost()
         display.print("must change battery");
         display.gotoXY(0, 3);
         display.print("transfering to menu");
+        delay(1000);
         menuVar = 0;
     }
     if (batteryHealthPercentage >= 10)
@@ -1140,11 +1163,7 @@ void batteryChange()
         display.clear();
         if (bankAccount < batteryChangeCost)
         {
-            display.gotoXY(0,3);
-            display.print("Not enough money!");
-            delay(3000);
-            display.clear();
-            menuVar = 0;
+            notEnoughMoney();
         }
         else{
             bankAccount -= batteryChangeCost;
