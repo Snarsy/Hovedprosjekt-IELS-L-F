@@ -31,7 +31,7 @@ int16_t lastError = 0;
 
 //Trenger ikke å tenke på batterihelse eller batteriliv. Han får gratis av jobben under jobb.
 
-const char march[] PROGMEM = 
+const char march[] PROGMEM = //STAR WARS TEMA MUSIKK
 "! O2 T100 MS"
 "a8. r16 a8. r16 a8. r16 f8 r16 >c16" 
 "ML"
@@ -58,7 +58,7 @@ const char march[] PROGMEM =
 "a8. r16 f8 r16 >c16 a2. r8"
 ;
 
-const char fugue[] PROGMEM =
+const char fugue[] PROGMEM = //MUSIKK FRA KEVIN POLOLU
   "! O5 L16 agafaea dac+adaea fa<aa<bac#a dac#adaea f"
   "O6 dcd<b-d<ad<g d<f+d<gd<ad<b- d<dd<ed<f+d<g d<f+d<gd<ad"
   "L8 MS <b-d<b-d MLe-<ge-<g MSc<ac<a ML d<fd<f O5 MS b-gb-g"
@@ -79,6 +79,7 @@ void setup(){
 }
 
 void whatJobDoYOuWant(){
+    //display på hva jobb man vil ha
     display.gotoXY(0,0);
     display.print("What job do you want?");
     display.gotoXY(0,2);
@@ -106,6 +107,7 @@ void whatJobDoYOuWant(){
 }
 
 void songOne(){
+    //Spiller star wars tema
     display.gotoXY(0,0);
     display.print("Star wars playing...");
     
@@ -138,6 +140,7 @@ void songOne(){
 }
 
 void songTwo(){
+    //Spiller sang nummer to
     display.gotoXY(0,0);
     display.print("Playing song two");
     
@@ -183,7 +186,7 @@ void songTwo(){
 }
 
 void sing(){
-    switch (songVar){
+    switch (songVar){ //Velger random sang mellom de to sangene
         case 0:
             songVar = random(amountOfSongs);
             display.clear();
@@ -198,7 +201,8 @@ void sing(){
  }
 
 
-void iceCreamDelivery(){
+void iceCreamDelivery(){ 
+    //Mellom 10 og 20 sekund stopper bilen for å gi ut is og tjene penger. 
     driveLinePID();
     iceCreamMillis = millis();
     if (iceCreamMillis - previousIceCreamMillis > intervalCustomer){
@@ -212,6 +216,7 @@ void iceCreamDelivery(){
 }
 
 void youHaveACustomer(){
+    //Får random verdi lønn. 
     display.clear();
     buzzer.playFrequency(1000,1000,10);
     motors.setSpeeds(0,0);
@@ -232,7 +237,7 @@ void youHaveACustomer(){
 }
 
 void footInFront()
-{
+{   //Leser sensor framme, og stopper hvis den leser en verdi som er veldig nærme. 
     proxSensor.read();
     uint16_t frontleftPosition = proxSensor.countsFrontWithLeftLeds();
     uint16_t frontrightPosition = proxSensor.countsFrontWithRightLeds();
@@ -246,24 +251,24 @@ void footInFront()
 }
 
 void driveLinePID()
-{
-    int16_t position = lineSensors.readLine(lineSensorValues);
-
-    int16_t error = position - 2000;
-    int16_t speedDifference = error / 0.5 + 4 * (error - lastError);
+{   
+    //Linjefølging tatt fra Kevin Pololu. 
+    int16_t position = lineSensors.readLine(lineSensorValues); //Leser linjeesensor. 
+    int16_t error = position - 2000; //Finnet ut om det er venstre eller høyre som er mer utenfor linjen.
+    int16_t speedDifference = error / 1 + 4 * (error - lastError); 
 
     lastError = error;
 
     int leftSpeed = followLinemaxSpeed + speedDifference;
     int rightSpeed = followLinemaxSpeed - speedDifference;
-    leftSpeed = constrain(leftSpeed, 0, (int16_t)followLinemaxSpeed);
+    leftSpeed = constrain(leftSpeed, 0, (int16_t)followLinemaxSpeed); //Constrain for å ikke få minus, og ikke over 400 verdi. 
     rightSpeed = constrain(rightSpeed, 0, (int16_t)followLinemaxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void doYouWantToCalibrate()
-{
+{   //Ønsker du å kalibrere?
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
     display.gotoXY(0, 3);
@@ -285,7 +290,7 @@ void doYouWantToCalibrate()
 }
 
 void backToMenu()
-{
+{ //Vil du tilbake til meny? Kommer fra footinfront. 
     if (proxClear == false)
     {
         display.clear();
@@ -314,6 +319,7 @@ void backToMenu()
 }
 
 void jobMenu(){
+    //switch case for jobbeutvalg
     switch (jobVar){
         case 0:
             whatJobDoYOuWant();
@@ -336,7 +342,7 @@ void jobMenu(){
 
 
 void calibrating()
-{
+{ //Kalibrerer linjesensor
     for (int i = 0; i < 60; i++)
     {
         motors.setSpeeds(200, -200);
@@ -351,5 +357,5 @@ void calibrating()
 
 
 void loop(){
-    jobMenu();
+    jobMenu(); //Switch case for jobbmeny
 }
