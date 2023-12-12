@@ -197,7 +197,7 @@ void lineFollowMenu()
         batteryLevel();
         maxSpeed_measure();
         averagesInAMinute();
-
+        batteryHealthLevel0Or1();
         break;
     case 3:
         driveLineStandard();
@@ -207,6 +207,7 @@ void lineFollowMenu()
         batteryLevel();
         maxSpeed_measure();
         averagesInAMinute();
+        batteryHealthLevel0Or1();
         break;
     }
 }
@@ -1029,7 +1030,7 @@ void chargingOrBatteryService()
 void batteryHealthCritical()
 {
     display.gotoXY(0, 2);
-    display.print("BATTERY CRITICAl!");
+    display.print("BATTERY CRITICAL!");
     display.gotoXY(3, 3);
     display.print("FIX NOW!");
 }
@@ -1043,7 +1044,6 @@ void batteryHealthLevel0Or1()
         serviceVar = 1;
         menuVar = 6;
         batteryHealthLevel = 1;
-        batteryHealthLevel0Or1();
         delay(3000);
     }
     if (batteryHealthPercentage >= 10 && batteryHealthLevel == 1)
@@ -1053,7 +1053,6 @@ void batteryHealthLevel0Or1()
         serviceVar = 2;
         menuVar = 6;
         batteryHealthLevel = 0;
-        batteryHealthLevel0Or1();
         delay(3000);
     }
 }
