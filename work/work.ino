@@ -221,6 +221,7 @@ void youHaveACustomer(){
     display.print("You earned:");
     display.gotoXY(11,2);
     display.print(bankEarnings);
+    bankAccount += bankEarnings;
     delay(5000);
     display.clear();
 }

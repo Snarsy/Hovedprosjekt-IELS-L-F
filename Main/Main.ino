@@ -1074,6 +1074,7 @@ void batteryHealthServiceCost()
         display.print("must change battery");
         display.gotoXY(0, 3);
         display.print("transfering to menu");
+        menuVar = 0;
     }
     if (batteryHealthPercentage >= 10)
     {
