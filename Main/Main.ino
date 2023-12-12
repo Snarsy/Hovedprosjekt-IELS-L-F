@@ -680,6 +680,7 @@ void chargeBatteryDisplay()
         display.clear();
         batteryHealthPercentage = batteryHealthPercentage - 5; // HVER GANG DEN GÅR TIL 5 PROSENT
         fivePercentageStop = true;                             // SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
+        updateBatteryHealthEeprom();
     }
     motors.setSpeeds(0, 0);
 
@@ -814,6 +815,7 @@ void chanceForReductionOfBatteryHealth()
     if (RandomCheckBatteryMalfunction == 1)
     {
         batteryHealthPercentage = batteryHealthPercentage / 2;
+        updateBatteryHealthEeprom();
         display.clear();
         batteryStatusDisplayVar = 5;
         batteryHealthPreviousMillis = batteryHealthMillis;
@@ -845,6 +847,7 @@ void batteryHealthAfterAverageMeasure()
     int batteryEffectMaxSpeed = maxSpeed * 0.05;
     int batteryEffectSum = (batteryEffectAverageSpeed60Sec + batteryEffectSecondsAboveSeventy) * batteryEffectMaxSpeed;
     batteryHealthPercentage -= batteryEffectSum;
+    updateBatteryHealthEeprom();
     // buzzer.playFrequency(250,1000,15);
 }
 
@@ -885,18 +888,22 @@ void batteryChargingMenu()
     if (buttonA.getSingleDebouncedPress())
     {
         batteryHealthPercentage = batteryHealthPercentage - 3;
+        updateBatteryHealthEeprom();
         chargeVar = 1;
         chargingCycle += 1;
         bankAccount -= batteryCost;
+        updateBankAccountEeprom();
         batteryFull = 1;
         display.clear();
     }
     if (buttonB.getSingleDebouncedPress())
     {
         batteryHealthPercentage = batteryHealthPercentage - 3;
+        updateBatteryHealthEeprom();
         chargeVar = 1;
         chargingCycle += 1;
         bankAccount -= 50;
+        updateBankAccountEeprom();
         if (batteryLife >= 100)
         {
             batteryLife = 100;
@@ -907,9 +914,11 @@ void batteryChargingMenu()
     if (buttonC.getSingleDebouncedPress())
     {
         batteryHealthPercentage = batteryHealthPercentage - 3;
+        updateBatteryHealthEeprom();
         chargeVar = 1;
         chargingCycle += 1;
         bankAccount -= 20;
+        updateBankAccountEeprom();
         if (batteryLife >= 100)
         {
             batteryLife = 100;
@@ -922,6 +931,9 @@ void batteryChargingMenu()
 void doYouWantToCharge()
 {
     aAndBFor();
+    if (batteryHealthPercentage > 99){
+        batteryHealthPercentage = 99;
+    }
     display.gotoXY(0, 0);
     display.print(F("Do you want to charge?"));
     display.gotoXY(0, 5);
@@ -1091,7 +1103,7 @@ void serviceWillCostMenu()
     display.print("Updated health:");
     display.gotoXY(18, 1);
     display.print(updatedBatteryHealthPercentage);
-    display.gotoXY(0, 3);
+    display.gotoXY(0, 4);
     display.print("Do you want to pay?");
     aAndBFor();
     display.gotoXY(0, 7);
@@ -1113,12 +1125,27 @@ void batteryChange()
     display.gotoXY(0, 7);
     display.print("Bank account:");
     display.gotoXY(14, 7);
+    display.print(bankAccount);
 
     if (buttonA.getSingleDebouncedPress())
     {
-        if (bankAccount <= batteryChangeCost)
+        display.clear();
+        if (bankAccount < batteryChangeCost)
         {
+            display.gotoXY(0,3);
+            display.print("Not enough money!");
+            delay(3000);
+            display.clear();
+            menuVar = 0;
         }
+        else{
+            bankAccount -= batteryChangeCost;
+            updateBankAccountEeprom();
+            menuVar = 0;
+        }
+    }
+    if (buttonB.getSingleDebouncedPress()){
+        menuVar = 0;
     }
 }
 
@@ -1128,6 +1155,7 @@ void calibratePaymentBatteryService()
     display.gotoXY(0, 3);
     display.print("Calibrating payment...");
     bankAccount -= batteryCost;
+    updateBankAccountEeprom();
     batteryHealthPercentage += 20; // fikser bare 20%
     delay(3000);
     display.clear();
@@ -1172,9 +1200,6 @@ void menu()
     if (batteryHealthPercentage < 99){
         batteryHealthPercentage = 99;
     }
-
-    updateBankAccountEeprom();
-    updateBatteryHealthEeprom();
 
     switch (menuVar)
     {
