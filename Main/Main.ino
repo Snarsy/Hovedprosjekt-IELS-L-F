@@ -92,7 +92,7 @@ void speedometer() // Måler fart hvert 10.dels sekund. Siden readtime = 100.
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); // Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
         negativeTotalSpeed = totalSpeed * -1;
         speedDistance += totalSpeed / 10; // Deler på 10 siden den teller hvert 1/10 sekund.
-        totalDistance += speedDistance;
+        totalDistance += speedDistance/10;
         distanceAverage += totalSpeed / 10;
         chanceForReductionOfBatteryHealth(); // Random faktoren for at batteriet mister 50%.
         maxSpeed70Percent();
@@ -686,7 +686,7 @@ void chargeBatteryDisplay()
     if (fivePercentageStop == false)
     {
         display.clear();
-        batteryHealthPercentage = batteryHealthPercentage - 5; // HVER GANG DEN GÅR TIL 5 PROSENT
+        batteryHealthPercentage -= 5; // HVER GANG DEN GÅR TIL 5 PROSENT
         fivePercentageStop = true;                             // SIDEN JEG IKKE HAR LADESTASJON SÅ SPØR DEN MED EN GANG
         updateBatteryHealthEeprom();
     }
@@ -852,11 +852,13 @@ void batteryHealthAfterAverageMeasure()
 {
     int batteryEffectSecondsAboveSeventy = secondsAboveSeventy * 0.25;
     int batteryEffectAverageSpeed60Sec = averageSpeed60Sec * 0.25;
-    int batteryEffectMaxSpeed = maxSpeed * 0.05;
+    int batteryEffectMaxSpeed = maxSpeed * 0.1;
     int batteryEffectSum = (batteryEffectAverageSpeed60Sec + batteryEffectSecondsAboveSeventy) * batteryEffectMaxSpeed;
     batteryHealthPercentage -= batteryEffectSum;
+    Serial.println(batteryEffectSum);
+    Serial.print(batteryHealthPercentage);
     updateBatteryHealthEeprom();
-    // buzzer.playFrequency(250,1000,15);
+    buzzer.playFrequency(250,1000,15);
 }
 
 // Hvis med ladestasjon, dukker dette displayet opp.
@@ -908,12 +910,13 @@ void batteryChargingMenu()
        if (bankAccount < batteryCost){
         notEnoughMoney();
        } else{
-        batteryHealthPercentage = batteryHealthPercentage - 3;
+        batteryHealthPercentage -= 3;
         updateBatteryHealthEeprom();
         chargeVar = 1;
         chargingCycle += 1;
         bankAccount -= batteryCost;
         updateBankAccountEeprom();
+        batteryLife = 100;
         batteryFull = 1;
         display.clear();
        }
@@ -923,8 +926,9 @@ void batteryChargingMenu()
         if (bankAccount < 50){
             notEnoughMoney();
         } else{
-        batteryHealthPercentage = batteryHealthPercentage - 3;
+        batteryHealthPercentage -= 3;
         updateBatteryHealthEeprom();
+        batteryLife += 25;
         chargeVar = 1;
         chargingCycle += 1;
         bankAccount -= 50;
@@ -945,6 +949,7 @@ void batteryChargingMenu()
         batteryHealthPercentage = batteryHealthPercentage - 3;
         updateBatteryHealthEeprom();
         chargeVar = 1;
+        batteryLife += 10;
         chargingCycle += 1;
         bankAccount -= 20;
         updateBankAccountEeprom();
@@ -1037,7 +1042,7 @@ void batteryHealthCritical()
 
 void batteryHealthLevel0Or1()
 {
-    if (batteryHealthPercentage >= 10 && batteryHealthLevel == 0)
+    if (batteryHealthPercentage <= 10 && batteryHealthLevel == 0)
     {
         buzzer.playFrequency(1000, 1000, 15);
         display.clear();
@@ -1046,7 +1051,7 @@ void batteryHealthLevel0Or1()
         batteryHealthLevel = 1;
         delay(3000);
     }
-    if (batteryHealthPercentage >= 10 && batteryHealthLevel == 1)
+    if (batteryHealthPercentage <= 10 && batteryHealthLevel == 1)
     {
         buzzer.playFrequency(1000, 1000, 15);
         display.clear();
@@ -1166,6 +1171,8 @@ void batteryChange()
         }
         else{
             bankAccount -= batteryChangeCost;
+            batteryHealthPercentage = 99;
+            updateBatteryHealthEeprom();
             updateBankAccountEeprom();
             menuVar = 0;
         }
@@ -1223,7 +1230,7 @@ void hiddenFeatureTimer()
 void menu()
 {
     hiddenFeatureTimer();
-    if (batteryHealthPercentage < 99){
+    if (batteryHealthPercentage > 99){
         batteryHealthPercentage = 99;
     }
     switch (menuVar)
