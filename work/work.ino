@@ -223,6 +223,9 @@ void youHaveACustomer(){
     display.gotoXY(11,2);
     display.print(bankEarnings);
     bankAccount += bankEarnings;
+    if (bankAccount > 255){
+        bankAccount = 255;
+    }
     EEPROM.write(bankAccountAddress,bankAccount);
     delay(5000);
     display.clear();
