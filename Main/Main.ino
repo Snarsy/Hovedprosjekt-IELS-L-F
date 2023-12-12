@@ -1266,6 +1266,9 @@ void reversingHiddenFeature()
     display.print("Charging....");
     if (batteryLife >= 20)
     {
+        if (batteryLife < 20){
+            batteryLife = 20;
+        }
         menuVar = 0;
         motors.setSpeeds(0, 0);
     }
