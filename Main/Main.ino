@@ -24,7 +24,7 @@ int A = 1;
 int16_t firstSpeed = 0;
 int readTime = 100;
 int16_t totalSpeed = 0;
-int16_t originalTotalSpeed = 0;
+int16_t negativeTotalSpeed = 0;
 bool seventyMillis_start, stoppedTimer = false;
 int holdTimerValue, secondsAboveSeventy, aboveSeventyCounter, maxSpeed, distanceAverage, averageSpeed60Sec = 0;
 
@@ -90,7 +90,7 @@ void speedometer() // Måler fart hvert 10.dels sekund. Siden readtime = 100.
         A = 1;
         previousSpeedMillis = speedMillis;
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); // Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
-        originalTotalSpeed =((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4);
+        negativeTotalSpeed = totalSpeed * -1;
         speedDistance += totalSpeed / 10; // Deler på 10 siden den teller hvert 1/10 sekund.
         totalDistance += speedDistance;
         distanceAverage += totalSpeed / 10;
@@ -263,6 +263,8 @@ void driveLinePID()
 {
     int16_t position = lineSensors.readLine(lineSensorValues);
 
+    // display.gotoXY(9,4);
+    // display.print(position);
     int16_t error = position - 2000;
     int16_t speedDifference = error / 0.5 + 4 * (error - lastError);
 
@@ -279,6 +281,8 @@ void driveLinePID()
 void driveLineStandard()
 {
     int Read = lineSensors.readLine(lineSensorValues);
+    // display.gotoXY(9, 4);
+    // display.print(Read);
     if (Read < 2000)
     {
         if (Read < 1750)
@@ -356,6 +360,7 @@ void turndeg(int tilverdi)
             break;
         }
     }
+    // display.print("Heeelo");
 }
 
 void whatPattern()
@@ -654,9 +659,11 @@ void statusDisplay()
         break;
     case 2:
         lowBatteryDisplay();
+        // batteryLevelDisplay();
         break;
     case 3:
         chargeBatteryDisplay();
+        // batteryLevelDisplay();
         break;
     case 4:
         emptyBatteryDisplay();
@@ -750,7 +757,7 @@ void batteryLevel()
     }
     if (hiddenFeature == true)
     {
-        if (originalTotalSpeed < 0)
+        if (negativeTotalSpeed < 0)
         {
             if (speedDistance > 20)
             { // Absoultt verdi, derfor over 20
@@ -1200,7 +1207,6 @@ void menu()
     if (batteryHealthPercentage < 99){
         batteryHealthPercentage = 99;
     }
-
     switch (menuVar)
     {
     case 0:
