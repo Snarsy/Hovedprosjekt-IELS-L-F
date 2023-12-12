@@ -92,7 +92,7 @@ void speedometer() // Måler fart hvert 10.dels sekund. Siden readtime = 100.
         totalSpeed = abs((lastSpeed - firstSpeed) / 909.70 * 10.996 * 4); // Verdiene er regnet med hvor mange ganger den teller og areal av hjulet.
         negativeTotalSpeed = totalSpeed * -1;
         speedDistance += totalSpeed / 10; // Deler på 10 siden den teller hvert 1/10 sekund.
-        totalDistance += speedDistance/10;
+        totalDistance += speedDistance;
         distanceAverage += totalSpeed / 10;
         chanceForReductionOfBatteryHealth(); // Random faktoren for at batteriet mister 50%.
         maxSpeed70Percent();
