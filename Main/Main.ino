@@ -1172,6 +1172,7 @@ void batteryChange()
         else{
             bankAccount -= batteryChangeCost;
             batteryHealthPercentage = 99;
+            batteryHealthLevel = 0;
             updateBatteryHealthEeprom();
             updateBankAccountEeprom();
             menuVar = 0;
