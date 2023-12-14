@@ -322,6 +322,10 @@ void calibrating()
 }
 
 /////////////////////////Driving Pattern///////////////////////////////
+//For hele driving pattern har vi brukt "Turnsensor.h" for å få verdier fra gyroen. Denne har vi hentet fra zumo eksempelet rotationresist funnet i githubet:
+//https://github.com/pololu/zumo-32u4-arduino-library/tree/master/examples/RotationResist.
+//Fra denne har vi brukt turnsensorreset, turnsensorupdate og turnangle.
+
 int sjekk1;
 int sjekk2;
 int vinkel;
@@ -329,7 +333,9 @@ int rotation = 0;
 int turns;
 unsigned long patternmillis;
 #include "Turnsensor.h"
-void turndeg(int tilverdi)
+void turndeg(int tilverdi)//Denne funksjonen roterer bilen i 90 grader ved hjelp av gyroen. Den har 87 grader ettersom dette er hva 90 grader er lik på skolens gulv.
+//Derimot med mer friksjon så vil man bruke 90 grader istedenfor 87 for 90.
+//Denne er blokkerende, men det er grunnet at dette er en rotasjon og tilnærmet null batteriliv skal gå ned av dette.
 { // 87 grader er lik 90
   // Snur den 90 grader. 
     delay(5);
@@ -384,8 +390,9 @@ void whatPattern()
         patternVar = 4;
     }
 }
-void calibratepattern()
-{ //Spør om den vil kalibrere gyroskop
+void calibratepattern()//Spør om å kalibrere bilens gyroskop slik at den kan kjøre mønstrene ved hjelp av gyroen. Her bruker jeg Turnsensor.h
+                       //til å kalibrere sensoren. Her har vi gjort noen endringer i "turnsensor.h" slik at vi kan kalibrere vilkårlig istedenfor kun i starten
+{
     aAndBFor();
     display.gotoXY(0, 0);
     display.print(F("Want to calibrate?"));
@@ -403,8 +410,10 @@ void calibratepattern()
     }
 }
 
-void Patternmenu()
-{ //Switch case for mønsterkjøring
+void Patternmenu()//Funksjon som spilles av inne i ene meny casen. Det er en en switch case med de forskjellige tilfellene innenfor mønsterkjøring.
+                  //Calibratepattern spør om å kalibrere, whatpattern spør om firkant, sirkel eller framtilbake og når disse er ferdige settes case variabelen
+                  //til å være 0 samt meny hovedvariabelen.
+{
     switch (patternVar)
     {
     case 0:
@@ -437,8 +446,9 @@ void Patternmenu()
     }
 }
 
-void squarePattern()
-{ //Kjører i firkant
+void squarePattern()//Denne går i en firkant "duh", ved at den først venter i 200ms for så å kjøre i 800ms, snu, oppdatere vinkel for så å gjøre igjen helt
+                    //til 4 rotasjoner er gjort.
+{
     if (millis() - patternmillis > 200)
     {
         if (millis() - patternmillis < 1000 && turns < 4)
@@ -458,8 +468,8 @@ void squarePattern()
         }
     }
 }
-void circlePattern()
-{ //Kjører i sirkel
+void circlePattern()//Denne utfører en sirkel ved at den kjører med 200,100 i fart helt til vinkelverdien er det den startet på/aka full sirkel.
+{
     if (millis() - patternmillis > 500)
     {
         motors.setSpeeds(200, 100);
@@ -473,8 +483,8 @@ void circlePattern()
         }
     }
 }
-void forwardBackpattern()
-{ //Kjører fram og tilbake
+void forwardBackpattern()//Her kjører bilen fram og tilbake og gjør det på samme måte som firkanten, ved unntak at det er to rotasjoner og 180 grader snudd.
+{
     if (millis() - patternmillis > 500)
     {
         motors.setSpeeds(200, 200);
